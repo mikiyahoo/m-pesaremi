@@ -1,0 +1,6 @@
+# kept local, not published
+*.docx
+~$*
+backup/
+_profin.py
+.claude/
