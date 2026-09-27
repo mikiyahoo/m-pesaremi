@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f5">
 <title>Remi — M-PESA Remit Prototype</title>
 <style>
   :root {
@@ -1210,6 +1211,17 @@
   .t-st.amber { color: var(--amber); } .t-st.red { color: var(--red); } .t-st.green { color: var(--green); } .t-st.grey { color: var(--muted); }
   .ic-inline { width: 12px; height: 12px; vertical-align: -1px; display: inline-block; }
   .ic-star { color: #f59e0b; } .ic-star svg { fill: currentColor; }
+
+  /* ===== Mobile browsing: app only, full screen (no sidebar, no phone frame) ===== */
+  @media (max-width: 600px) {
+    body { height: 100dvh; background: var(--bg); }
+    .sidebar { display: none; }
+    .main-content { padding: 0; overflow: hidden; }
+    .phone { width: 100vw; height: 100dvh; min-height: 0; max-height: none; border: none; border-radius: 0; box-shadow: none; }
+    .screen > .status-bar { visibility: hidden; height: env(safe-area-inset-top, 0px); padding: 0; }
+    .bottom-nav, .bottom-bar { padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+    .toast { bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+  }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
 </head>
