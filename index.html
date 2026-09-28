@@ -1722,11 +1722,23 @@
   .proc-ov { padding-bottom: calc(10px + var(--kb, 0px)) !important; transition: padding-bottom 0.2s ease; }
   .overlay { padding-bottom: var(--kb, 0px); transition: padding-bottom 0.2s ease; }
   .rv-dock { margin-bottom: calc(10px + var(--kb, 0px)); transition: margin-bottom 0.2s ease; }
+  /* login / sign-up: the red header stays put; the white sheet scrolls up over the logo until it meets the Back bar */
+  .auth-layout { --hdr: clamp(176px, 30vh, 280px); --ovl: 52px; --auth-top: calc(max(14px, env(safe-area-inset-top, 0px)) + 48px); position: relative; }
+  .auth-layout > .auth-header { position: absolute; top: 0; left: 0; right: 0; height: var(--hdr); }
+  .auth-layout > .auth-body {
+    position: absolute; top: var(--auth-top); left: 0; right: 0; bottom: 0; z-index: 1;
+    display: block; margin: 0; padding: calc(var(--hdr) - var(--ovl) - var(--auth-top)) 0 0;
+    background: transparent; border-radius: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; scrollbar-width: none;
+  }
+  .auth-layout > .auth-body::-webkit-scrollbar { display: none; }
+  .auth-sheet { background: var(--card); border-radius: 28px 28px 0 0; padding-top: 12px; min-height: calc(100% + var(--hdr) - var(--ovl) - var(--auth-top)); display: flex; flex-direction: column; }
+  .auth-layout .auth-sheet .pad { flex: 1 0 auto; overflow: visible; min-height: 0; }
+  .auth-sheet > .auth-title, .auth-sheet > .auth-sub { text-align: center; }
   /* short phones: give the form more room on login / sign-up */
   @media (max-height: 760px) {
     .auth-header-inner { padding-top: 40px; padding-bottom: 44px; }
     .auth-header-inner img { width: 44%; max-width: 160px; }
-    .auth-body { margin-top: -44px; }
+    .auth-layout { --ovl: 44px; }
     .auth-title { font-size: 21px; padding-top: 16px; }
     .auth-sub { padding-bottom: 10px; }
     .auth-body .field { margin-bottom: 10px; }
@@ -1740,6 +1752,7 @@
     .phone { width: 100vw; height: 100dvh; min-height: 0; max-height: none; border: none; border-radius: 0; box-shadow: none; }
     .screen > .status-bar { height: max(4px, env(safe-area-inset-top, 0px)); }
     .screen.auth-screen .topbar { top: max(4px, env(safe-area-inset-top, 0px)); }
+    .auth-layout { --auth-top: calc(max(4px, env(safe-area-inset-top, 0px)) + 48px); }
     .bottom-nav, .bottom-bar { padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
     .toast { bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
     .sp-top { margin-top: calc(22% + env(safe-area-inset-top, 0px)); }
@@ -2253,7 +2266,7 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
   theme: 'auth-screen',
   render: () => `${topbar({ title: '' })}<div class="scroll"><div class="auth-layout">
     <div class="auth-header"><div class="auth-header-inner"><img src="assets/M-PESA-Logo-Remit.svg" alt="M-PESA Remit"></div></div>
-    <div class="auth-body">
+    <div class="auth-body"><div class="auth-sheet">
       <div class="auth-title">Create your account</div>
       <div class="auth-sub">Sign up to start sending money home</div>
       <div class="pad" oninput="S.su=S.su||{};S.su[event.target.id]=event.target.value">
@@ -2270,7 +2283,7 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
       <button class="btn btn-primary" id="su-go" disabled onclick="S.user.first=$('#su-first').value;S.user.last=$('#su-last').value;go('otp',{mode:'signup',to:dialCur().c+' '+$('#su-phone').value})">Continue</button>
         </div>
       </div>
-    </div>
+    </div></div>
     </div></div>
 `,
   after: () => { const pw = $('#su-pw'); pwRules(pw ? pw.value : ''); signupValid(); }
@@ -2540,7 +2553,7 @@ screen('login', 'ON-07', 'Onboarding & KYC', 'Log in', {
   theme: 'auth-screen',
   render: () => `${topbar({ title: '', onLeft: "root('welcome')" })}<div class="scroll"><div class="auth-layout">
     <div class="auth-header"><div class="auth-header-inner"><img src="assets/M-PESA-Logo-Remit.svg" alt="M-PESA Remit"></div></div>
-    <div class="auth-body">
+    <div class="auth-body"><div class="auth-sheet">
       <div class="auth-title">Welcome back</div>
       <div class="auth-sub">Log in to your account</div>
       <div class="pad">
@@ -2561,7 +2574,7 @@ screen('login', 'ON-07', 'Onboarding & KYC', 'Log in', {
         <div class="auth-actions"><button class="btn btn-primary" onclick="doLogin()">Log in</button>
     <p class="note">New to Remi? <button class="link" onclick="go('signup')">Create an account</button></p></div>
       </div>
-    </div>
+    </div></div>
     </div></div>
 `
 });
