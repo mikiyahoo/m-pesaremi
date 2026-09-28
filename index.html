@@ -271,10 +271,11 @@
     letter-spacing: -0.4px;
     padding: 4px 16px 14px;
   }
-  .page-title span { color: var(--red); }
+  .page-title span { color: inherit; }
   /* step counter on the right of the page title (lighter), instead of in the header */
   .page-title.pt-row { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; padding-right: 16px; }
   .page-title.pt-row .pt-title { color: var(--ink); }
+  .page-title.pt-row .pt-act { font-size: 13px; font-weight: 700; letter-spacing: 0; white-space: nowrap; }
   .page-title.pt-row .pt-step { font-size: 12px; font-weight: 700; letter-spacing: 0.4px; white-space: nowrap; color: var(--muted-2); }
   .page-lead { font-size: 14px; color: var(--muted); padding: 0 16px 18px; margin-top: -8px; line-height: 1.45; }
 
@@ -506,6 +507,29 @@
     height: 50px; border-radius: 16px; border: 1.5px solid var(--line); background: #fff;
     padding: 0 12px; display: flex; align-items: center; font-size: 16px; font-weight: 600; flex-shrink: 0;
   }
+  .input-group .dial-btn { gap: 6px; cursor: pointer; color: var(--ink); }
+  .input-group .dial-btn svg:not(.flag) { width: 14px; height: 14px; color: var(--muted); transform: rotate(90deg); }
+  .opt-tile .dial-code { margin-left: auto; font-weight: 700; color: var(--ink-2); }
+  /* Personal info (PR-02) */
+  .pi-head { display: flex; align-items: center; gap: 14px; padding: 16px; margin-bottom: 12px; }
+  .pi-av { width: 52px; height: 52px; border-radius: 50%; background: #e8ecf3; color: #2b3a55; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 800; flex-shrink: 0; position: relative; overflow: hidden; }
+  .card > .pi-av:first-child { border-radius: 50%; }
+  .pi-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .pi-name { font-size: 17px; font-weight: 800; color: var(--ink); }
+  .pi-sub { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .pi-card { padding: 16px 16px 4px; margin-bottom: 12px; }
+  .pi-h { font-size: 16px; font-weight: 800; margin-bottom: 4px; }
+  .pi-card .field { margin: 12px 0; }
+  .pi-row { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; }
+  .pi-row + .pi-row { border-top: 1px solid var(--line); }
+  .pi-tx { flex: 1; min-width: 0; }
+  .pi-k { font-size: 12px; color: var(--muted); }
+  .pi-v { font-size: 14px; font-weight: 600; color: var(--ink); margin-top: 3px; overflow-wrap: anywhere; }
+  .pi-ok { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--green); white-space: nowrap; margin-top: 2px; }
+  .pi-ok svg { width: 16px; height: 16px; padding: 3px; border-radius: 50%; background: var(--green); color: #fff; }
+  .pi-lock { width: 15px; height: 15px; color: var(--muted); margin-top: 2px; flex-shrink: 0; }
+  .pi-close { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: none; border: none; padding: 14px 4px; margin-top: 8px; color: var(--red); font-size: 14px; font-weight: 700; }
+  .pi-close svg { width: 22px; height: 22px; }
   .pw-wrap { position: relative; }
   .pw-wrap .input { padding-right: 60px; }
   .pw-wrap button { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 12px; font-weight: 700; color: var(--red); padding: 8px; }
@@ -664,6 +688,10 @@
 
   /* ===== Home (v2 — approved mockup) ===== */
   .h-pad { padding: 0 16px 20px; }
+  /* home: greeting, wallet and rate stay put; only In progress and below scroll */
+  .h-fixed { flex-shrink: 0; }
+  .h-pad.h-top { padding-bottom: 0; }
+  .h-scroll > .h-pad > .h-sec:first-child { margin-top: 6px; }
   .h-head { display: flex; align-items: center; gap: 12px; padding: 8px 16px 14px; }
   .h-avatar { width: 42px; height: 42px; border-radius: 50%; background: #111; color: #fff; font-weight: 800; font-size: 16px;
     display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
@@ -673,7 +701,7 @@
   .h-hello { flex: 1; min-width: 0; }
   .h-hello p { font-size: 13px; color: var(--muted); }
   .h-hello h2 { font-size: 20px; font-weight: 800; letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
-  .h-hello h2 span { color: var(--red); }
+  .h-hello h2 span { color: inherit; }
   .h-bell { width: 40px; height: 40px; background: none; border: none; position: relative; flex-shrink: 0; padding: 0;
     display: flex; align-items: center; justify-content: center; color: var(--ink); }
   .h-bell svg { width: 24px; height: 24px; }
@@ -776,7 +804,7 @@
   /* send flow: title + progress dots on one row */
   .page-title.with-steps { display: flex; flex-direction: column; align-items: stretch; gap: 12px; padding-bottom: 16px; }
   .page-title.with-steps .pt-text { min-width: 0; color: var(--ink); }
-  .page-title.with-steps .pt-text span { color: var(--red); }
+  .page-title.with-steps .pt-text span { color: inherit; }
   /* progress: thin segmented line under the title */
   .stepdots { display: flex; gap: 6px; }
   .stepdots i { flex: 1; height: 4px; border-radius: 2px; background: #dcdce0; transition: background 0.3s; }
@@ -789,8 +817,8 @@
   .rv-hero > div { position: relative; z-index: 1; }
   .rv-hero .muted { color: rgba(255,255,255,0.65) !important; }
   .screen:has(.rv-dock) > .scroll { padding-bottom: 160px; }   /* content scrolls under the floating dock */
-  .rv-dock { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; margin: 0 12px 12px; padding: 14px 14px 14px; background: #fff; border-radius: 22px;
-    box-shadow: 0 -6px 26px rgba(17,17,17,0.10), 0 0 0 12px var(--bg); gap: 12px; }   /* grey ring hides content in the side/bottom gaps */
+  .rv-dock { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; margin: 0 10px 10px; padding: 16px 16px 20px; background: #fff; border-radius: 28px;
+    box-shadow: 0 -8px 30px rgba(17,17,17,0.15), 0 0 0 10px var(--bg); gap: 12px; }   /* grey ring hides content in the side/bottom gaps */
   .rv-dock .rv-consent { padding: 2px 4px 0; }
   .terms-line { font-size: 13px; color: var(--muted); line-height: 1.45; padding: 0 4px; text-align: left; }
   .terms-line a { color: var(--red); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
@@ -800,7 +828,7 @@
   .tdash i.done { background: var(--red-light); } .tdash i.on { width: 32px; background: var(--red); }
   .terms { flex: 1; min-height: 0; padding-top: 18px; }
   .terms .page-lead { margin-top: -4px; }
-  .terms-list { display: flex; flex-direction: column; gap: 20px; padding: 12px 16px 0; }
+  .terms-list { display: flex; flex-direction: column; gap: 20px; margin: 12px 16px 0; padding: 18px 16px; background: var(--card); border-radius: var(--radius); border: 1px solid #f0f0f0; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
   .titem { display: flex; align-items: flex-start; gap: 14px; }
   .tic {
     width: 26px; height: 26px; border-radius: 8px;
@@ -860,26 +888,29 @@
   /* processing: dimmed page + bottom card */
   .proc-ov { position: absolute; inset: 0; z-index: 40; background: rgba(17,17,17,0.35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     display: flex; align-items: flex-end; padding: 0 10px 10px; animation: fade 0.2s ease; }
-  .proc-sheet { width: 100%; background: #fff; border-radius: 28px; padding: 10px 24px 26px; text-align: center; box-shadow: 0 -8px 30px rgba(17,17,17,0.15);
+  .proc-sheet { width: 100%; background: #fff; border-radius: 28px; padding: 10px 16px 22px; text-align: center; box-shadow: 0 -8px 30px rgba(17,17,17,0.15);
     animation: sheetUp 0.35s cubic-bezier(.2,.8,.2,1); }
   @keyframes sheetUp { from { transform: translateY(40px); opacity: 0; } }
   /* OTP & PIN: bottom modal card with side + bottom gaps, like the send-money processing sheet */
-  .proc-ov.center { align-items: flex-end; justify-content: center; padding: 0 16px 16px; overflow-y: auto; }
-  .mdl-card { width: 100%; max-width: 340px; margin: 0 auto; flex-shrink: 0; background: #fff; border-radius: 28px; padding: 4px 14px 16px; text-align: center;
-    box-shadow: 0 -8px 30px rgba(17,17,17,0.18); animation: sheetUp 0.35s cubic-bezier(.2,.8,.2,1); }
-  .mdl-card .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 10px auto 20px; }
-  .mdl-card h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; margin: 8px 0 6px; }
-  .mdl-card h2 span { color: var(--red); }
+  .proc-ov.center { align-items: flex-end; justify-content: center; padding: 0 10px 10px; overflow-y: auto; }
+  .mdl-card { width: 100%; margin: 0 auto; flex-shrink: 0; background: #fff; border-radius: 28px; padding: 10px 16px 22px; text-align: center;
+    box-shadow: 0 -8px 30px rgba(17,17,17,0.15); animation: sheetUp 0.35s cubic-bezier(.2,.8,.2,1); }
+  .mdl-card .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 0 auto 20px; }
+  .mdl-card h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; margin: 8px 0 6px; padding: 0 40px; }
+  .mdl-card, .proc-sheet, .sheet { position: relative; }
+  .mdl-card h2 span { color: inherit; }
   .mdl-card .sub { font-size: 13px; color: var(--muted); line-height: 1.45; margin: 0 2px 14px; }
   .mdl-card .shield-ic { width: 46px; height: 46px; border-radius: 14px; background: var(--red-soft); color: var(--red); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
   .mdl-card .shield-ic svg { width: 24px; height: 24px; }
   .mdl-card .deck-hit { margin-top: 14px; }
   .mdl-card .otp-call { margin-top: 8px; }
   .mdl-card .bio-row { margin-top: 12px; }
+  .mdl-card .field, .mdl-card .errtext, .mdl-card .rules, .mdl-card .steps-list { text-align: left; }
   /* KYC status screens as bottom-sheet modals */
   .kyc-card { position: relative; padding-top: 8px; }
-  .kyc-card .kc-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 10px; border: none; background: #f2f2f4; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
-  .kyc-card .kc-close svg { width: 16px; height: 16px; }
+  .kc-close { position: absolute; z-index: 2; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 10px; border: none; background: #f2f2f4; color: var(--ink-2); display: flex; align-items: center; justify-content: center; }
+  .kc-close[hidden] { display: none; }
+  .kc-close svg { width: 16px; height: 16px; }
   .kyc-card .ok-sq { margin: 0 auto 16px; box-shadow: -4px 5px 0 rgba(17,17,17,0.12); }
   .kyc-card .ok-sq svg { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
   .kyc-card .kyc-body { margin-top: 6px; }
@@ -887,9 +918,9 @@
   .kyc-card .kyc-note { text-align: center; }
   .kyc-card .kyc-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
   .kyc-card .kyc-actions .btn { margin: 0; width: 100%; }
-  .proc-sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 4px auto 22px; }
+  .proc-sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 0 auto 20px; }
   .ps-art { position: relative; z-index: 2; overflow: visible; height: 110px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-  .proc-sheet h2 { font-size: 20px; font-weight: 800; }
+  .proc-sheet h2 { font-size: 20px; font-weight: 800; padding: 0 40px; }
   .proc-sheet p { font-size: 13px; color: var(--muted); margin-top: 6px; min-height: 18px; }
   .proc-sheet p.in { animation: stepIn 0.25s ease; }
   @keyframes stepIn { from { transform: translateY(6px); opacity: 0; } }
@@ -904,7 +935,7 @@
     border: 3px solid var(--bg); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(50,178,75,0.35); }
   .pf-verified svg { width: 13px; height: 13px; }
   /* Welcome v2 */
-  .w-hero { position: relative; margin: 6px 16px 0; height: 262px; border-radius: 22px; background: #0d0d0f; overflow: hidden; box-shadow: 0 14px 30px rgba(17,17,17,0.18); }
+  .w-hero { position: relative; margin: 6px 16px 0; height: 330px; border-radius: 22px; background: #0d0d0f; overflow: hidden; box-shadow: 0 14px 30px rgba(17,17,17,0.18); }
   .w-map { position: absolute; inset: 0; width: 100%; height: 100%; }
   .w-arc { stroke-dasharray: 18 82; animation: arcflow 2.6s linear infinite; filter: drop-shadow(0 0 3px #E56A68); }
   @keyframes arcflow { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
@@ -920,7 +951,7 @@
   .w-bub small { font-size: 11px; color: var(--ink-2); margin-top: 1px; }
   .w-bub span { font-size: 11px; font-weight: 500; }
   .w-send { top: 16px; left: 12px; }
-  .w-recv { top: 88px; right: 12px; }
+  .w-recv { top: 118px; right: 12px; }
   .w-done { bottom: 18px; left: 14px; padding-right: 10px; }
   .w-done > svg { width: 14px; height: 14px; color: var(--muted); margin-left: 8px; }
   .w-done b.g { color: var(--green); }
@@ -931,7 +962,7 @@
   .w-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); }
   .w-eyebrow i { font-style: normal; margin: 0 6px; }
   .w-copy h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.8px; line-height: 1.12; margin-top: 4px; }
-  .w-copy h1 span { color: var(--red); }
+  .w-copy h1 span { color: inherit; }
   .w-copy p { font-size: 13px; color: var(--muted); line-height: 1.55; margin-top: 10px; }
   .w-feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 16px; text-align: center; }
   .w-feats div { display: flex; flex-direction: column; align-items: center; }
@@ -1067,7 +1098,7 @@
   .w-more svg { width: 20px; height: 20px; }
   .w-amt-row { display: flex; align-items: center; gap: 10px; margin-top: 6px; }
   .w-amt { font-size: 32px; font-weight: 800; letter-spacing: -0.8px; line-height: 1; }
-  .w-amt small.dx { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; color: rgba(255,255,255,0.85); }
+  .w-amt small.dx { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; color: rgba(255,255,255,0.85); }
   .w-eye { width: 30px; height: 24px; border-radius: 8px; border: none; background: rgba(208,60,59,0.22); color: #F2A9A8; display: flex; align-items: center; justify-content: center; }
   .w-eye svg { width: 15px; height: 15px; }
   .w-chip-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
@@ -1105,7 +1136,7 @@
   .home-head .hello { flex: 1; }
   .home-head .hello p { font-size: 13px; color: var(--muted); }
   .home-head .hello h2 { font-size: 20px; font-weight: 800; }
-  .home-head .hello h2 span { color: var(--red); }
+  .home-head .hello h2 span { color: inherit; }
 
   .send-hero {
     background: #111; color: #fff; border-radius: 22px; padding: 18px;
@@ -1199,6 +1230,7 @@
   .ok-sq svg { width: 36px; height: 36px; }
   .ok-sq.amber { background: var(--amber); }
   .ok-sq.red { background: var(--red); }
+  .ok-sq.grey { background: #6b6b73; }
   .ps-actions { display: flex; flex-direction: column; align-items: center; }
   /* two equal pill buttons: secondary (light) left, primary (dark) right */
   .ps-row { display: flex; gap: 10px; width: 100%; margin-top: 20px; animation: stepIn 0.3s ease 0.3s both; }
@@ -1280,7 +1312,7 @@
   .code-head { text-align: center; padding: 14px 20px 6px; }
   .code-head .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2.6px; text-transform: uppercase; color: var(--muted); }
   .code-head .code-title { font-size: 26px; font-weight: 800; letter-spacing: -0.6px; margin-top: 6px; line-height: 1.15; }
-  .code-head .code-title span { color: var(--red); }
+  .code-head .code-title span { color: inherit; }
   .auth-body .code-head { padding-top: 8px; }
   .auth-body .code-title { font-size: 26px; white-space: nowrap; }
   .code-head .eyebrow .sep { color: var(--red); font-style: normal; margin: 0 4px; }
@@ -1427,7 +1459,7 @@
   .welcome-art .bubble small { display: block; font-size: 10px; color: var(--muted); font-weight: 600; }
   .welcome-copy { padding: 26px 24px 0; }
   .welcome-copy h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.6px; line-height: 1.15; }
-  .welcome-copy h1 span { color: var(--red); }
+  .welcome-copy h1 span { color: inherit; }
   .welcome-copy p { font-size: 14px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
   .dots { display: flex; gap: 6px; margin-top: 18px; }
   .dots i { width: 8px; height: 8px; border-radius: 4px; background: #ddd; }
@@ -1457,12 +1489,12 @@
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding-top: 60px;
-    padding-bottom: 20px;
+    padding-top: 52px;
+    padding-bottom: 36px;
   }
   .auth-header-inner img {
-    width: 46.2%;
-    max-width: 169px;
+    width: 51%;
+    max-width: 187px;
     height: auto;
     filter: brightness(0) invert(1);
     transform: translateY(-2px);
@@ -1492,7 +1524,8 @@
     padding: 0 16px 14px;
     line-height: 1.45;
   }
-  .auth-body .pad { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; min-height: 0; padding: 0 16px 24px; }
+  .auth-body .pad { flex: 1 1 auto; align-self: stretch; overflow-y: auto; -webkit-overflow-scrolling: touch; min-height: 0; padding: 0 16px 24px; scrollbar-width: none; }
+  .auth-body .pad::-webkit-scrollbar { display: none; }
   .screen.auth-screen { background: #fff; }
   .screen.auth-screen .status-bar { background: transparent; position: absolute; top: 0; left: 0; right: 0; z-index: 2; color: #fff; }
   .screen.auth-screen .status-bar svg { stroke: #fff; }
@@ -1613,8 +1646,8 @@
   .sheet { background: #fff; width: calc(100% - 20px); margin: 0 10px 10px; border-radius: 28px; padding: 10px 16px 22px; max-height: 80%; overflow-y: auto;
     box-shadow: 0 -8px 30px rgba(17,17,17,0.15); animation: sheetUp 0.35s cubic-bezier(.2,.8,.2,1); }
   @keyframes up { from { transform: translateY(40px); opacity: 0.6; } }
-  .sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: #ddd; margin: 0 auto 20px; }
-  .sheet h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+  .sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 0 auto 20px; }
+  .sheet h3 { font-size: 20px; font-weight: 800; margin-bottom: 6px; padding-right: 44px; }
   .sheet p.sub { font-size: 13px; color: var(--muted); margin-bottom: 16px; line-height: 1.45; }
   .dialog { background: #fff; border-radius: 22px; padding: 24px 20px 18px; width: 100%; text-align: center; animation: up 0.2s ease; }
   .dialog .big-ic { width: 56px; height: 56px; border-radius: 18px; margin: 0 auto 18px; box-shadow: -3px 4px 0 #111; }
@@ -1703,6 +1736,7 @@ const P = {
   store: '<path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/>',
   check: '<polyline points="20 6 9 17 4 12"/>',
   alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  warn: '<path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
   info: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>',
   shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
   shieldCheck: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>',
@@ -1753,7 +1787,8 @@ const FLAGS = {
   GB: '<svg class="flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#012169"/><path d="M0,0 L22,16 M22,0 L0,16" stroke="#fff" stroke-width="3.2"/><path d="M0,0 L22,16 M22,0 L0,16" stroke="#C8102E" stroke-width="2"/><path d="M11,0 V16 M0,8 H22" stroke="#fff" stroke-width="5.3"/><path d="M11,0 V16 M0,8 H22" stroke="#C8102E" stroke-width="3.2"/></svg>',
   EU: '<svg class="flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#003399"/><g fill="#FFCC00" transform="translate(11,8)"><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(0) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(30) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(60) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(90) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(120) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(150) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(180) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(210) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(240) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(270) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(300) translate(0,-5.5)"/><polygon points="0,-4.2 0.9,-1.4 3.6,-1.4 1.5,0.5 2.2,3.3 0,1.6 -2.2,3.3 -1.5,0.5 -3.6,-1.4 -0.9,-1.4" transform="scale(0.38) rotate(330) translate(0,-5.5)"/></g></svg>',
   CA: '<svg class="flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#fff"/><rect width="5.5" height="16" fill="#D80621"/><rect x="16.5" width="5.5" height="16" fill="#D80621"/><path d="M11,3.5 L12,6.5 L15,6.5 L12.5,8.5 L13.5,11.5 L11,9.5 L8.5,11.5 L9.5,8.5 L7,6.5 L10,6.5 Z" fill="#D80621"/></svg>',
-  AE: '<svg class="flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#fff"/><rect y="0" width="22" height="5.34" fill="#00732F"/><rect y="10.66" width="22" height="5.34" fill="#000"/><rect width="6" height="16" fill="#FF0000"/></svg>'
+  AE: '<svg class="flag" viewBox="0 0 22 16"><rect width="22" height="16" fill="#fff"/><rect y="0" width="22" height="5.34" fill="#00732F"/><rect y="10.66" width="22" height="5.34" fill="#000"/><rect width="6" height="16" fill="#FF0000"/></svg>',
+  DE: '<svg class="flag" viewBox="0 0 22 16"><rect width="22" height="5.34" fill="#111"/><rect y="5.33" width="22" height="5.34" fill="#dd0000"/><rect y="10.66" width="22" height="5.34" fill="#ffce00"/></svg>'
 };
 
 /* ---------- Config (SAMPLE values — URS leaves these open) ---------- */
@@ -1788,6 +1823,7 @@ const CFG = {
 
 /* ---------- State ---------- */
 const S = {
+  homeCollapsed: true,   // home wallet card starts collapsed (quick actions hidden)
   demo: { kyc: 'approved', outcome: 'success' },   // reviewer controls
   user: {
     first: 'Nitsuh', last: 'Derseh', email: 'nitsuh.derseh@example.com', phone: '+1 202 555 0147',
@@ -2011,7 +2047,7 @@ function sheet(html, cls = '') {
   const o = document.createElement('div');
   o.className = 'overlay ' + cls;
   o.onclick = e => { if (e.target === o) closeOverlay(); };
-  o.innerHTML = cls.includes('center') ? `<div class="dialog" role="dialog">${html}</div>` : `<div class="sheet" role="dialog"><div class="grab"></div>${html}</div>`;
+  o.innerHTML = cls.includes('center') ? `<div class="dialog" role="dialog">${html}</div>` : `<div class="sheet" role="dialog"><div class="grab"></div><button class="kc-close" onclick="closeOverlay()" aria-label="Close">${ic('close', 2.4)}</button>${html}</div>`;
   $('.screen').appendChild(o);
 }
 const dialog = html => sheet(html, 'center');
@@ -2060,14 +2096,14 @@ screen('splash', 'ON-01', 'Onboarding & KYC', 'Splash', {
   after: () => {
     const holder = $('#spLottie');
     const toWelcome = () => { if (S.nav.cur.id === 'splash') go('welcome', {}, { replace: true }); };
-    const safety = () => later(toWelcome, 5000);   // safety timeout in case animation fails
+    const safety = () => later(toWelcome, 7000);   // safety timeout in case animation fails
     if (!window.lottie || DECK.reduce()) return later(toWelcome, 800);
     const an = lottie.loadAnimation({ container: holder, renderer: 'svg', loop: true, autoplay: true, animationData: JSON.parse(JSON.stringify(MPESA_LOTTIE)) });
     let loops = 0;
     safety();
     an.addEventListener('loopComplete', () => {
       if (!document.body.contains(holder)) return an.destroy();
-      if (++loops >= 1) {
+      if (++loops >= 2) {
         an.pause();
         later(toWelcome, 150);
       }
@@ -2154,12 +2190,12 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
       <div class="auth-title">Create your account</div>
       <div class="auth-sub">Sign up to start sending money home</div>
       <div class="pad" style="padding-bottom:120px" oninput="S.su=S.su||{};S.su[event.target.id]=event.target.value">
-        <div class="btn-row"><div class="field" style="flex:1"><label for="su-first">First name</label><input class="input" id="su-first" autocomplete="given-name" value="${esc(S.su?.['su-first'] ?? 'Nitsuh')}"></div>
-        <div class="field" style="flex:1"><label for="su-last">Last name</label><input class="input" id="su-last" autocomplete="family-name" value="${esc(S.su?.['su-last'] ?? 'Derseh')}"></div></div>
-        <div class="field"><label for="su-country">Country of residence</label><select class="select" id="su-country"><option>United States</option><option>United Kingdom</option><option>Canada</option><option>Germany</option><option>United Arab Emirates</option></select></div>
-        <div class="field"><label for="su-phone">Mobile number</label><div class="input-group"><span class="prefix">+1</span><input class="input" id="su-phone" inputmode="tel" autocomplete="tel-national" value="${esc(S.su?.['su-phone'] ?? '202 555 0147')}"></div></div>
-        <div class="field"><label for="su-email">Email</label><input class="input" id="su-email" type="email" autocomplete="email" value="${esc(S.su?.['su-email'] ?? 'nitsuh.derseh@example.com')}"></div>
-        <div class="field"><label for="su-pw">Password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" value="${esc(S.su?.['su-pw'] ?? '')}" oninput="pwRules(this.value)"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
+        <div class="btn-row"><div class="field" style="flex:1"><label for="su-first">First name</label><input class="input" id="su-first" autocomplete="given-name" value="${esc(S.su?.['su-first'] ?? 'Nitsuh')}" placeholder="e.g. Abebe"></div>
+        <div class="field" style="flex:1"><label for="su-last">Last name</label><input class="input" id="su-last" autocomplete="family-name" value="${esc(S.su?.['su-last'] ?? 'Derseh')}" placeholder="e.g. Kebede"></div></div>
+        <div class="field"><label for="su-country">Country of residence</label><select class="select" id="su-country" onchange="setDial(DIAL.find(d => d.n === this.value).k)">${DIAL.map(d => `<option ${d.n === (S.su?.['su-country'] ?? 'United States') ? 'selected' : ''}>${d.n}</option>`).join('')}</select></div>
+        <div class="field"><label for="su-phone">Mobile number</label><div class="input-group"><button type="button" class="prefix dial-btn" id="su-dial" onclick="dialSheet()" aria-label="Country code">${dialBtn()}</button><input class="input" id="su-phone" inputmode="tel" autocomplete="tel-national" value="${esc(S.su?.['su-phone'] ?? '202 555 0147')}" placeholder="e.g. 202 555 0147"></div></div>
+        <div class="field"><label for="su-email">Email</label><input class="input" id="su-email" type="email" autocomplete="email" value="${esc(S.su?.['su-email'] ?? 'nitsuh.derseh@example.com')}" placeholder="you@example.com"></div>
+        <div class="field"><label for="su-pw">Password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" value="${esc(S.su?.['su-pw'] ?? '')}" oninput="pwRules(this.value)" placeholder="At least 8 characters"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
           <div class="rules" id="pw-rules"><span data-r="len">8+ characters</span><span data-r="up">Uppercase letter</span><span data-r="num">A number</span><span data-r="sym">A symbol</span></div></div>
       </div>
     </div>
@@ -2167,10 +2203,24 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
     <div class="bottom-bar rv-dock">
       <label class="check rv-consent"><input type="checkbox"> <span>Send me offers and rate alerts <span class="muted">(optional)</span></span></label>
       <p class="terms-line">I agree to the <a href="#" onclick="go('legal',{doc:'terms',from:'signup'});return false">Terms of Use</a> and <a href="#" onclick="go('legal',{doc:'privacy'});return false">Privacy Policy</a> of M-PESA Remit.</p>
-      <button class="btn btn-primary" id="su-go" disabled onclick="S.user.first=$('#su-first').value;S.user.last=$('#su-last').value;go('otp',{mode:'signup',to:'+1 '+$('#su-phone').value})">Continue</button>
+      <button class="btn btn-primary" id="su-go" disabled onclick="S.user.first=$('#su-first').value;S.user.last=$('#su-last').value;go('otp',{mode:'signup',to:dialCur().c+' '+$('#su-phone').value})">Continue</button>
     </div>`,
   after: () => { const pw = $('#su-pw'); pwRules(pw ? pw.value : ''); signupValid(); }
 });
+/* mobile country code chooser (sign-up) */
+const DIAL = [
+  { k: 'US', n: 'United States', c: '+1' }, { k: 'GB', n: 'United Kingdom', c: '+44' }, { k: 'CA', n: 'Canada', c: '+1' },
+  { k: 'DE', n: 'Germany', c: '+49' }, { k: 'AE', n: 'United Arab Emirates', c: '+971' }
+];
+const dialCur = () => DIAL.find(d => d.k === S.su?.dial) || DIAL[0];
+const dialBtn = () => { const d = dialCur(); return `${FLAGS[d.k]}<span>${d.c}</span>${ic('chev', 2.4)}`; };
+function setDial(k) { S.su = S.su || {}; S.su.dial = k; const b = $('#su-dial'); if (b) b.innerHTML = dialBtn(); }
+function dialSheet() {
+  const cur = dialCur().k;
+  const rows = DIAL.map(d => `<button class="opt-tile ${d.k === cur ? 'on' : ''}" onclick="setDial('${d.k}');closeOverlay()">
+    ${FLAGS[d.k]}<div class="tx"><div class="t1">${d.n}</div></div><span class="dial-code">${d.c}</span></button>`);
+  sheet(`<h3>Country code</h3>${rows.join('')}`);
+}
 function pwRules(v) {
   const r = { len: v.length >= 8, up: /[A-Z]/.test(v), num: /\d/.test(v), sym: /[^A-Za-z0-9]/.test(v) };
   const allOk = Object.values(r).every(Boolean);
@@ -2272,13 +2322,20 @@ function deckRun(el, ok, cb = {}) {
 }
 
 /* The page dimmed behind the OTP / PIN modals — same pattern as the send-money processing screen */
+/* backdrop for a modal screen: the nearest earlier page in the stack that is not itself a modal */
+let OVL_BUSY = false, OVL_NESTED = false;
 function overlayPage() {
-  const st = S.nav.stack;
-  if (!st || !st.length) return '';
-  const prev = st[st.length - 1];
-  const s = REG[prev.id];
-  if (!s || prev.id === 'otp' || prev.id === 'unlock') return '';
-  return s.render(prev.params || {});
+  if (OVL_BUSY) { OVL_NESTED = true; return ''; }
+  const st = S.nav.stack || [];
+  for (let i = st.length - 1; i >= 0; i--) {
+    const prev = st[i], s = REG[prev.id];
+    if (!s || prev.id === 'otp' || prev.id === 'unlock') return '';
+    OVL_BUSY = true; OVL_NESTED = false;
+    let html = '';
+    try { html = s.render(prev.params || {}); } finally { OVL_BUSY = false; }
+    if (!OVL_NESTED) return html;   // prev was a modal too — keep looking further back
+  }
+  return '';
 }
 
 /* OTP — modes: signup | login | reset | payment */
@@ -2302,7 +2359,7 @@ screen('otp', 'ON-05', 'Onboarding & KYC', 'OTP verification', {
     return `${overlayPage()}
       <div class="proc-ov center" onclick="if(event.target===this)back()">
         <div class="mdl-card" role="dialog" aria-modal="true" aria-live="polite">
-          <div class="grab"></div>
+          <div class="grab"></div><button class="kc-close" onclick="back()" aria-label="Close">${ic('close', 2.4)}</button>
           <h2>${title}</h2>
           <p class="sub">${sub}</p>
           <div class="deck-hit" onclick="$('#otp-in').focus()">${deckHTML('otpDeck', OTP.len)}
@@ -2328,9 +2385,28 @@ screen('otp', 'ON-05', 'Onboarding & KYC', 'OTP verification', {
       if (v.length === OTP.len) otpSubmit();
     });
     inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); otpSubmit(); } });
+    deckKeyboard(inp);
     startResend();
   }
 });
+/* OTP / PIN: take keyboard input as soon as the modal opens, without clicking the boxes first */
+function deckKeyboard(inp) {
+  const focus = () => { if (document.body.contains(inp) && !inp.disabled) try { inp.focus({ preventScroll: true }); } catch (_) {} };
+  later(focus, 60);
+  const onKey = e => {
+    if (!document.body.contains(inp)) return document.removeEventListener('keydown', onKey);
+    if (document.activeElement === inp || inp.disabled || e.ctrlKey || e.metaKey || e.altKey) return;
+    const a = document.activeElement;
+    if (a && a !== document.body && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+    if (!/^\d$/.test(e.key) && e.key !== 'Backspace') return;
+    e.preventDefault();
+    const max = +inp.maxLength || 6;
+    inp.value = e.key === 'Backspace' ? inp.value.slice(0, -1) : (inp.value + e.key).slice(0, max);
+    inp.dispatchEvent(new Event('input'));
+    focus();
+  };
+  document.addEventListener('keydown', onKey);
+}
 function otpKey(k) {
   if (OTP.busy) return;
   const inp = $('#otp-in');
@@ -2391,8 +2467,8 @@ screen('login', 'ON-07', 'Onboarding & KYC', 'Log in', {
           <span>Sign in with Google</span>
         </button>
         <div class="auth-divider"><span>or</span></div>
-        <div class="field"><label for="li-id">Email or mobile number</label><input class="input" id="li-id" autocomplete="username" value="nitsuh.derseh@example.com"></div>
-        <div class="field"><label for="li-pw">Password</label><div class="pw-wrap"><input class="input" id="li-pw" type="password" autocomplete="current-password" value="Remi!2026"><button type="button" onclick="togglePw('li-pw', this)">Show</button></div>
+        <div class="field"><label for="li-id">Email or mobile number</label><input class="input" id="li-id" autocomplete="username" value="nitsuh.derseh@example.com" placeholder="Email or mobile number"></div>
+        <div class="field"><label for="li-pw">Password</label><div class="pw-wrap"><input class="input" id="li-pw" type="password" autocomplete="current-password" value="Remi!2026" placeholder="Enter your password"><button type="button" onclick="togglePw('li-pw', this)">Show</button></div>
         <div class="errtext" id="li-err" hidden></div></div>
         <button class="link" onclick="go('forgot')">Forgot password?</button>
       </div>
@@ -2417,7 +2493,7 @@ screen('forgot', 'ON-08', 'Onboarding & KYC', 'Forgot password', {
         <div class="grab"></div>
         <h2>Reset your <span>password</span></h2>
         <p class="sub">We’ll text you a code.</p>
-        <div class="field"><label for="fp-id">Email or mobile number</label><input class="input" id="fp-id" value="nitsuh.derseh@example.com"></div>
+        <div class="field"><label for="fp-id">Email or mobile number</label><input class="input" id="fp-id" value="nitsuh.derseh@example.com" placeholder="Email or mobile number"></div>
         <div class="kyc-actions"><button class="btn btn-primary" onclick="go('otp',{mode:'reset',to:'+1 ••• ••• 0147'})">Send code</button></div>
       </div>
     </div>`
@@ -2430,9 +2506,9 @@ screen('reset-password', 'ON-09', 'Onboarding & KYC', 'Reset password', {
         <button class="kc-close" onclick="back()" aria-label="Close">${ic('close', 2.4)}</button>
         <div class="grab"></div>
         <h2>Create a new <span>password</span></h2>
-        <div class="field" style="margin-top:6px"><label for="su-pw">New password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" oninput="pwConfirmCheck()"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
+        <div class="field" style="margin-top:6px"><label for="su-pw">New password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" oninput="pwConfirmCheck()" placeholder="Create a password"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
           <div class="rules" id="pw-rules"><span data-r="len">8+ characters</span><span data-r="up">Uppercase letter</span><span data-r="num">A number</span><span data-r="sym">A symbol</span></div></div>
-        <div class="field"><label for="su-pw2">Confirm new password</label><div class="pw-wrap"><input class="input" id="su-pw2" type="password" autocomplete="new-password" oninput="pwConfirmCheck()"><button type="button" onclick="togglePw('su-pw2', this)">Show</button></div>
+        <div class="field"><label for="su-pw2">Confirm new password</label><div class="pw-wrap"><input class="input" id="su-pw2" type="password" autocomplete="new-password" oninput="pwConfirmCheck()" placeholder="Re-enter your password"><button type="button" onclick="togglePw('su-pw2', this)">Show</button></div>
           <div class="pw-match" id="pw-match" aria-live="polite"></div></div>
         <div class="kyc-actions"><button class="btn btn-primary pw-go" id="rp-go" disabled onclick="root('login');toast('Password updated — please log in')">Update password</button></div>
       </div>
@@ -2448,7 +2524,7 @@ screen('unlock', 'AU-01', 'Onboarding & KYC', 'Unlock with PIN', {
   render: () => `${overlayPage()}
       <div class="proc-ov center" onclick="if(event.target===this)back()">
         <div class="mdl-card" role="dialog" aria-modal="true">
-          <div class="grab"></div>
+          <div class="grab"></div><button class="kc-close" onclick="back()" aria-label="Close">${ic('close', 2.4)}</button>
           <div class="shield-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6.5c0 5 3.4 9.4 8 10.5 4.6-1.1 8-5.5 8-10.5V5z" fill="currentColor"/><rect x="8.6" y="11" width="6.8" height="5.4" rx="1.2" fill="#fff"/><path d="M10.2 11V9.6a1.8 1.8 0 0 1 3.6 0V11" fill="none" stroke="#fff" stroke-width="1.6"/></svg></div>
           <h2>Welcome back, <span>${esc(S.user.first)}</span></h2>
           <p class="sub">Enter your 6-digit PIN to unlock Remi.</p>
@@ -2472,6 +2548,7 @@ screen('unlock', 'AU-01', 'Onboarding & KYC', 'Unlock with PIN', {
       if (value.length === PIN.len) pinVerify();
     });
     pinRender();
+    deckKeyboard(inp);
   }
 });
 
@@ -2558,10 +2635,10 @@ screen('kyc-personal', 'ON-11', 'Onboarding & KYC', 'Personal information', {
   render: () => `${topbar()}<div class="scroll"><div class="page-title pt-row"><span class="pt-title">Personal <span>details</span></span><span class="pt-step">Step 1 of 3</span></div>
     <p class="page-lead">As shown on your ID.</p>
     <div class="pad">
-      <div class="field"><label for="k-name">Full legal name</label><input class="input" id="k-name" value="${esc(S.user.first + ' ' + S.user.last)}"></div>
+      <div class="field"><label for="k-name">Full legal name</label><input class="input" id="k-name" value="${esc(S.user.first + ' ' + S.user.last)}" placeholder="Full legal name"></div>
       <div class="field"><label for="k-dob">Date of birth</label><input class="input" id="k-dob" type="date" value="${S.user.dob}"></div>
       <div class="field"><label for="k-nat">Nationality</label><select class="select" id="k-nat"><option>Ethiopian</option><option>American</option><option>British</option><option>Canadian</option><option>Other</option></select></div>
-      <div class="field"><label for="k-addr">Residential address</label><input class="input" id="k-addr" value="${esc(S.user.address)}"></div>
+      <div class="field"><label for="k-addr">Residential address</label><input class="input" id="k-addr" value="${esc(S.user.address)}" placeholder="Street, city, state, ZIP"></div>
       <div class="field"><label for="k-occ">Occupation</label><select class="select" id="k-occ"><option>Employed</option><option>Self-employed</option><option>Student</option><option>Retired</option><option>Other</option></select></div>
       <div class="field"><label for="k-src">Main source of funds</label><select class="select" id="k-src"><option>Salary</option><option>Business income</option><option>Savings</option><option>Other</option></select></div>
     </div></div>
@@ -2586,11 +2663,11 @@ screen('kyc-id', 'ON-12', 'Onboarding & KYC', 'Identity documents', {
 });
 
 /* KYC status screens as bottom-sheet modals (same card as OTP / PIN) */
-function kycModal({ sq, title, sub, body, actions }) {
+function kycModal({ sq, title, sub, body, actions, close = "root('home')" }) {
   return `${overlayPage()}
-    <div class="proc-ov" onclick="if(event.target===this)root('home')">
+    <div class="proc-ov" onclick="if(event.target===this)${close}">
       <div class="mdl-card kyc-card">
-        <button class="kc-close" onclick="root('home')" aria-label="Close">${ic('close', 2.4)}</button>
+        <button class="kc-close" onclick="${close}" aria-label="Close">${ic('close', 2.4)}</button>
         <div class="grab"></div>
         ${sq}
         <h2>${title}</h2>
@@ -2649,14 +2726,14 @@ screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
     const greet = hr < 12 ? 'Good morning,' : hr < 18 ? 'Good afternoon,' : 'Good evening,';
     const unread = S.notifications.filter(n => n.unread).length;
     const active = S.transactions.filter(t => ['submitted', 'compliance', 'processing', 'payout'].includes(t.status));
-    const recent = S.transactions.filter(t => !active.includes(t)).slice(0, 5);
+    const recent = S.transactions.slice(0, 5);   // same list as Activity (in-progress transfers included)
     const favs = S.beneficiaries.filter(b => b.fav);
     const seeAll = fn => `<button class="h-viewall" onclick="${fn}">View all ${ic('chev', 2.4)}</button>`;
-    return `<div class="scroll">
+    return `<div class="h-fixed">
     <div class="h-head"><button class="h-avatar" onclick="tab('profile')" aria-label="Your profile">${S.user.photo ? `<img src="${esc(S.user.photo)}" alt="" onerror="this.remove()">` : ''}${esc(S.user.first[0] + S.user.last[0])}</button>
       <div class="h-hello"><p>${greet}</p><h2>${esc(S.user.first)} <span>${esc(S.user.last)}</span></h2></div>
       <button class="h-bell" onclick="go('notifications')" aria-label="Notifications, ${unread} unread">${ic('bell')}${unread ? `<span class="dot">${unread}</span>` : ''}</button></div>
-    <div class="h-pad">
+    <div class="h-pad h-top">
       ${kycBanner()}
       <div class="h-wallet ${S.homeCollapsed ? 'collapsed' : ''}">
         <div class="h-wcard">
@@ -2685,6 +2762,8 @@ screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
           ${ic('chev', 2.2).replace('<svg', '<svg class="chev"')}</button>
         <button class="btn btn-primary" onclick="startSend()"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 2 2 10.2l7.4 3.1L20 4.8l-8.6 10.4V22l3.9-5.2 4.7 2z"/></svg> Send money</button>
       </div>
+    </div></div>
+    <div class="scroll h-scroll"><div class="h-pad">
       ${active.length ? `<div class="h-sec"><h3>In progress</h3>${seeAll("S.txFilter='active';tab('history')")}</div>
         <div class="t-cards"><div class="t-group-card">${active.map(txLine).join('')}</div></div>` : ''}
       <div class="h-sec"><h3>Send again</h3>${seeAll("tab('recipients')")}</div>
@@ -2844,7 +2923,7 @@ function rateAlertSheet() {
   const target = S.rateAlert || Math.ceil(CFG.rate + 1);
   sheet(`<h3>Rate alert</h3><p class="sub">Today: <b style="color:var(--ink)">${CFG.rate.toFixed(2)} ETB</b>.</p>
     <div class="field"><label for="ra-v">Notify me when 1 USD is at least</label>
-      <div class="input-group"><input class="input" id="ra-v" inputmode="decimal" value="${target.toFixed(2)}"><span class="prefix">ETB</span></div>
+      <div class="input-group"><input class="input" id="ra-v" inputmode="decimal" value="${target.toFixed(2)}" placeholder="e.g. 132.50"><span class="prefix">ETB</span></div>
       <div class="errtext" id="ra-err" hidden></div></div>
     <button class="btn btn-primary" onclick="saveRateAlert()">${S.rateAlert ? 'Update alert' : 'Set alert'}</button>
     ${S.rateAlert ? `<button class="btn btn-ghost mt8" onclick="S.rateAlert=null;closeOverlay();toast('Rate alert removed')">Remove alert</button>` : ''}`);
@@ -2930,7 +3009,7 @@ function downloadStatementPdf() {
 }
 function emailStatementSheet() {
   sheet(`<h3>Email statement</h3><p class="sub">We’ll send the PDF statement for ${statementRangeLabel().toLowerCase()}.</p>
-    <div class="field"><label for="statement-email">Email address</label><input class="input" id="statement-email" type="email" value="${esc(S.user.email)}" autocomplete="email"></div>
+    <div class="field"><label for="statement-email">Email address</label><input class="input" id="statement-email" type="email" value="${esc(S.user.email)}" autocomplete="email" placeholder="you@example.com"></div>
     <div class="errtext" id="statement-email-err" hidden></div>
     <button class="btn btn-primary" onclick="sendStatementEmail()">Send statement</button>`);
 }
@@ -3024,8 +3103,9 @@ screen('notifications', 'NT-01', 'Home & Navigation', 'Notification center', {
     items.forEach(n => { const k = dayLabel(n.date); const g = groups.find(x => x.k === k); g ? g.items.push(n) : groups.push({ k, d: n.date, items: [n] }); });
     const grouped = groups.map(g => `<div class="t-dayh"><b>${g.k}</b><span>${new Date(g.d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span></div>
       <div class="card">${g.items.map(row).join('')}</div>`).join('');
-    return `${topbar({ title: '', right: `<button class="link" onclick="S.notifications.forEach(n=>n.unread=false);render()">Mark all read</button>` })}
-    <div class="scroll"><div class="page-title" style="padding-top:0">Notifications</div>
+    const anyUnread = items.some(n => n.unread);
+    return `${topbar({ title: '' })}
+    <div class="scroll"><div class="page-title pt-row" style="padding-top:0"><span class="pt-title">Notifications</span>${anyUnread ? `<button class="link pt-act" onclick="S.notifications.forEach(n=>n.unread=false);render()">Mark all as read</button>` : ''}</div>
     <div class="pad" style="padding-top:4px">
       ${items.length ? grouped : emptyState('bell', 'You’re all caught up', 'Transfer updates, receipts and security alerts will appear here.')}
     </div></div>`;
@@ -3104,7 +3184,7 @@ screen('add-recipient', 'BF-03', 'Recipients', 'Add / edit recipient', {
     const title = mode === 'edit' ? 'Edit <span>recipient</span>' : mode === 'account' ? 'Add payout <span>method</span>' : 'New <span>recipient</span>';
     const personal = mode === 'account' ? `<div class="card card-pad mb16" style="display:flex;gap:12px;align-items:center">${avatar(b, 'sm red')}<div><div class="fw8">${esc(fullName(b))}</div><div class="small muted">${esc(b.phone)}</div></div></div>` : `
       <div class="btn-row"><div class="field" style="flex:1"><label for="r-first">First name</label><input class="input" id="r-first" value="${fv('r-first', b?.first || '')}" placeholder="As on their ID"></div>
-      <div class="field" style="flex:1"><label for="r-last">Last name</label><input class="input" id="r-last" value="${fv('r-last', b?.last || '')}"></div></div>
+      <div class="field" style="flex:1"><label for="r-last">Last name</label><input class="input" id="r-last" value="${fv('r-last', b?.last || '')}" placeholder="As on their ID"></div></div>
       <div class="field"><label for="r-phone">Mobile number</label><div class="input-group"><span class="prefix">${FLAGS.ET}&nbsp;+251</span><input class="input" id="r-phone" inputmode="tel" value="${fv('r-phone', (b?.phone || '').replace('+251 ', ''))}" placeholder="9XX XXX XXX"></div></div>
       <div class="field"><label for="r-rel">Relationship</label><select class="select" id="r-rel">${['Parent', 'Sibling', 'Spouse', 'Child', 'Cousin', 'Friend', 'Other'].map(r => `<option ${(F['r-rel'] || b?.rel) === r ? 'selected' : ''}>${r}</option>`).join('')}</select></div>`;
     const cur = CFG.payouts[BF.type];
@@ -3172,6 +3252,7 @@ screen('validate-recipient', 'BF-06', 'Recipients', 'Validate recipient', {
     <div class="proc-ov">
       <div class="proc-sheet" role="status" aria-live="polite">
         <div class="grab"></div>
+        <button class="kc-close" onclick="back()" aria-label="Close">${ic('close', 2.4)}</button>
         <div class="ps-art" id="vrArt">${mpesaAnim(110, 'ps-anim')}</div>
         <h2 id="vrTitle">Checking details\u2026</h2>
         <p id="vrSub">Confirming the account with ${esc(p.acc?.provider || 'the payout partner')}.</p>
@@ -3439,10 +3520,10 @@ screen('send-payout', 'SM-07', 'Send Money', 'Payout method', {
 screen('add-card', 'PY-02', 'Send Money', 'Add card', {
   render: () => `${topbar()}<div class="scroll"><div class="page-title">Add a <span>card</span></div><div class="pad">
     <div class="field"><label for="c-num">Card number</label><input class="input" id="c-num" inputmode="numeric" autocomplete="cc-number" placeholder="1234 5678 9012 3456" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,16).replace(/(\\d{4})(?=\\d)/g,'$1 ')"></div>
-    <div class="field"><label for="c-name">Name on card</label><input class="input" id="c-name" autocomplete="cc-name" value="${esc(S.user.first + ' ' + S.user.last)}"></div>
+    <div class="field"><label for="c-name">Name on card</label><input class="input" id="c-name" autocomplete="cc-name" value="${esc(S.user.first + ' ' + S.user.last)}" placeholder="Name on card"></div>
     <div class="btn-row"><div class="field" style="flex:1"><label for="c-exp">Expiry</label><input class="input" id="c-exp" placeholder="MM/YY" inputmode="numeric" autocomplete="cc-exp" oninput="this.value=this.value.replace(/\\D/g,'').slice(0,4).replace(/(\\d{2})(?=\\d)/,'$1/')"></div>
     <div class="field" style="flex:1"><label for="c-cvv">Security code</label><input class="input" id="c-cvv" placeholder="CVV" inputmode="numeric" autocomplete="cc-csc" maxlength="4"></div></div>
-    <div class="field"><label for="c-zip">Billing ZIP / postal code</label><input class="input" id="c-zip" autocomplete="postal-code"></div>
+    <div class="field"><label for="c-zip">Billing ZIP / postal code</label><input class="input" id="c-zip" autocomplete="postal-code" placeholder="e.g. 20001"></div>
     <label class="check"><input type="checkbox" checked> <span>Save this card for future transfers</span></label>
     <div class="errtext" id="c-err" hidden></div>
     
@@ -3555,6 +3636,7 @@ screen('send-processing', 'SM-18', 'Send Money', 'Processing & compliance', {
     <div class="proc-ov">
       <div class="proc-sheet" role="status" aria-live="polite">
         <div class="grab"></div>
+        <button class="kc-close" id="psClose" hidden aria-label="Close">${ic('close', 2.4)}</button>
         <div class="ps-art" id="psArt">${mpesaAnim(110, 'ps-anim')}</div>
         <h2 id="psTitle">Processing\u2026</h2>
         <p id="psSub">Your transfer is processing</p>
@@ -3590,6 +3672,7 @@ function procDone() {
   art.innerHTML = `<div class="ok-sq ${review ? 'amber' : ''}">${ic(review ? 'clock' : 'check', 3)}</div>`; art.classList.add('done');
   $('#psTitle').textContent = review ? 'Under review' : 'Success!';
   const sub = $('#psSub'); sub.classList.remove('in'); sub.textContent = review ? 'A quick compliance check is needed' : 'Your transfer was sent'; void sub.offsetWidth; sub.classList.add('in');
+  const pc = $('#psClose'); if (pc) { pc.hidden = false; pc.onclick = () => procOpen(t.ref); }
   $('#psAct').innerHTML = `<button class="ps-btn" onclick="procOpen('${t.ref}')">${review ? 'View details' : 'Nice one!'}</button>`;
   $('.ps-btn').focus();
 }
@@ -3988,22 +4071,32 @@ function confirmLogout() {
 screen('personal', 'PR-02', 'Profile & Security', 'Personal information', {
   render: p => {
     const u = S.user, ed = p.edit;
-    const f = (id, label, v, lockd) => ed && !lockd ? `<div class="field"><label for="${id}">${label}</label><input class="input" id="${id}" value="${esc(v)}"></div>`
-      : `<div class="kv"><span class="k">${label}</span><span class="v">${esc(v)}${lockd && ed ? ' ' + ic('lock').replace('<svg', '<svg class="ic-inline" style="color:var(--muted)"') : ''}</span></div>`;
-    return `${topbar({ title: '', right: ed ? '' : `<button class="link" onclick="go('personal',{edit:true},{replace:true})">Edit</button>` })}
-    <div class="scroll"><div class="page-title" style="padding-top:0">Personal <span>info</span></div>
+    const dob = new Date(u.dob + 'T00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const lock = ic('lock').replace('<svg', '<svg class="pi-lock"');
+    const ok = `<span class="pi-ok">${ic('check', 3)}Verified</span>`;
+    /* view: stacked label over value; edit: inputs for editable fields, locked rows for ID-sourced ones */
+    const f = (id, label, v, { lockd, badge } = {}) => ed && !lockd
+      ? `<div class="field"><label for="${id}">${label}</label><input class="input" id="${id}" value="${esc(v)}" placeholder="${label}"></div>`
+      : `<div class="pi-row"><div class="pi-tx"><div class="pi-k">${label}</div><div class="pi-v">${esc(v)}</div></div>${lockd && ed ? lock : badge && !ed ? ok : ''}</div>`;
+    return `${topbar({ title: '' })}
+    <div class="scroll"><div class="page-title pt-row" style="padding-top:0"><span class="pt-title">Personal <span>info</span></span>${ed ? '' : `<button class="link pt-act" onclick="go('personal',{edit:true},{replace:true})">Edit</button>`}</div>
     <div class="pad" style="padding-top:4px">
-      ${ed ? `<div class="banner grey mb16">${ic('info')}<div>Name and birth date come from your ID.</div></div>` : ''}
-      <div class="${ed ? '' : 'card'}">
-        ${f('p-name', 'Legal name', u.first + ' ' + u.last, true)}
-        ${f('p-dob', 'Date of birth', new Date(u.dob + 'T00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), true)}
-        ${f('p-email', 'Email', u.email)}
-        ${f('p-phone', 'Mobile', u.phone)}
-        ${f('p-addr', 'Address', u.address)}
-        ${f('p-country', 'Country', u.country, true)}
+      ${ed ? `<div class="banner grey mb16">${ic('info')}<div>Name and birth date come from your ID.</div></div>` : `<div class="card pi-head">
+        <div class="pi-av">${u.photo ? `<img src="${esc(u.photo)}" alt="" onerror="this.remove()">` : ''}${esc(u.first[0] + u.last[0])}</div>
+        <div class="pi-tx"><div class="pi-name">${esc(u.first + ' ' + u.last)}</div><div class="pi-sub">Personal account</div></div>${S.demo.kyc === 'approved' ? ok : ''}</div>`}
+      <div class="card pi-card"><h3 class="pi-h">Basic information</h3>
+        ${f('p-name', 'Legal name', u.first + ' ' + u.last, { lockd: true })}
+        ${f('p-dob', 'Date of birth', dob, { lockd: true })}
       </div>
+      <div class="card pi-card"><h3 class="pi-h">Contact information</h3>
+        ${f('p-email', 'Email', u.email, { badge: true })}
+        ${f('p-phone', 'Mobile', u.phone, { badge: true })}
+        ${f('p-addr', 'Address', u.address)}
+        ${f('p-country', 'Country', u.country, { lockd: true })}
+      </div>
+      ${ed ? '' : `<button class="pi-close" onclick="confirmClose()">${ic('warn')}<span>Close my account</span></button>`}
       </div></div>
-    ${ed ? `<div class="bottom-bar"><button class="btn btn-primary" onclick="S.user.email=$('#p-email').value;S.user.phone=$('#p-phone').value;S.user.address=$('#p-addr').value;go('otp',{mode:'login',to:S.user.phone},{replace:true});toast('Verify your changes')">Save changes</button></div>` : `<div class="bottom-bar"><button class="btn btn-ghost" onclick="confirmClose()">Close my account</button></div>`}`;
+    ${ed ? `<div class="bottom-bar"><button class="btn btn-primary" onclick="S.user.email=$('#p-email').value;S.user.phone=$('#p-phone').value;S.user.address=$('#p-addr').value;go('otp',{mode:'login',to:S.user.phone},{replace:true});toast('Verify your changes')">Save changes</button></div>` : ''}`;
   }
 });
 
@@ -4060,10 +4153,10 @@ screen('security', 'PR-04', 'Profile & Security', 'Security settings', {
 
 screen('change-password', 'PR-05', 'Profile & Security', 'Change password', {
   render: () => `${topbar()}<div class="scroll"><div class="page-title">Change <span>password</span></div><div class="pad">
-    <div class="field"><label for="cp-old">Current password</label><input class="input" id="cp-old" type="password" autocomplete="current-password" oninput="pwConfirmCheck()"></div>
-    <div class="field"><label for="su-pw">New password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" oninput="pwConfirmCheck()"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
+    <div class="field"><label for="cp-old">Current password</label><input class="input" id="cp-old" type="password" autocomplete="current-password" oninput="pwConfirmCheck()" placeholder="Enter your current password"></div>
+    <div class="field"><label for="su-pw">New password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" oninput="pwConfirmCheck()" placeholder="Create a password"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
     <div class="rules" id="pw-rules"><span data-r="len">8+ characters</span><span data-r="up">Uppercase letter</span><span data-r="num">A number</span><span data-r="sym">A symbol</span></div></div>
-    <div class="field"><label for="su-pw2">Confirm new password</label><div class="pw-wrap"><input class="input" id="su-pw2" type="password" autocomplete="new-password" oninput="pwConfirmCheck()"><button type="button" onclick="togglePw('su-pw2', this)">Show</button></div>
+    <div class="field"><label for="su-pw2">Confirm new password</label><div class="pw-wrap"><input class="input" id="su-pw2" type="password" autocomplete="new-password" oninput="pwConfirmCheck()" placeholder="Re-enter your password"><button type="button" onclick="togglePw('su-pw2', this)">Show</button></div>
       <div class="pw-match" id="pw-match" aria-live="polite"></div></div>
   </div></div>
   <div class="bottom-bar"><button class="btn btn-primary pw-go" id="cp-go" disabled onclick="back();toast('Password changed')">Update password</button></div>`,
@@ -4220,10 +4313,15 @@ function submitTicket() {
 screen('support-submitted', 'SP-06', 'Help & Support', 'Request submitted', {
   render: p => {
     const t = S.tickets.find(x => x.id === p.id) || S.tickets[0];
-    return `<div class="scroll"><div class="result" style="padding-top:70px"><div class="big-ic green">${ic('check', 3)}</div><h2>Request received</h2>
-      <p>We\u2019ll reply within 24 hours.</p>
-      <div class="ref-box"><div style="text-align:left"><div class="k">Ticket number</div><div class="v">${t.id}</div></div><span class="chip amber">Open</span></div></div></div>
-    <div class="bottom-bar"><button class="btn btn-primary" onclick="root('home');go('support')">Back to Help</button></div>`;
+    const toHelp = "root('home');go('support')";
+    return kycModal({
+      sq: `<div class="ok-sq">${ic('check', 3)}</div>`,
+      title: 'Request received',
+      sub: 'We’ll reply within 24 hours.',
+      body: `<div class="ref-box"><div style="text-align:left"><div class="k">Ticket number</div><div class="v">${t.id}</div></div><span class="chip amber">Open</span></div>`,
+      actions: `<button class="btn btn-primary" onclick="${toHelp}">Back to Help</button>`,
+      close: toHelp
+    });
   }
 });
 
@@ -4239,9 +4337,15 @@ const STATES = {
 screen('state', 'ST-xx', 'States', 'State', {
   render: p => {
     const s = STATES[p.kind || 'network'];
-    return `<div class="scroll"><div class="result" style="padding-top:110px"><div class="big-ic ${s[1]}">${ic(s[0])}</div><h2>${s[2]}</h2><p>${s[3]}</p></div></div>
-      <div class="bottom-bar"><button class="btn btn-primary" onclick="${p.kind === 'session' ? "root('login')" : "root('home')"}">${s[4]}</button>
-      <button class="btn btn-ghost" onclick="go('support')">Contact support</button></div>`;
+    const primary = p.kind === 'session' ? "root('login')" : "root('home')";
+    return kycModal({
+      sq: `<div class="ok-sq ${s[1]}">${ic(s[0], 2.6)}</div>`,
+      title: s[2],
+      sub: s[3],
+      actions: `<button class="btn btn-primary" onclick="${primary}">${s[4]}</button>
+      <button class="btn btn-ghost" onclick="go('support')">Contact support</button>`,
+      close: primary
+    });
   }
 });
 
