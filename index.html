@@ -1558,6 +1558,8 @@
     padding: 0 16px 14px;
     line-height: 1.45;
   }
+  .auth-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .auth-actions .note { text-align: center; }
   .auth-body .pad { flex: 1 1 auto; align-self: stretch; overflow-y: auto; -webkit-overflow-scrolling: touch; min-height: 0; padding: 0 16px 24px; scrollbar-width: none; }
   .auth-body .pad::-webkit-scrollbar { display: none; }
   .screen.auth-screen { background: var(--card); }
@@ -1730,7 +1732,6 @@
     .auth-body .field { margin-bottom: 10px; }
     .rv-dock { padding: 12px 14px 14px; gap: 8px; }
     .rv-dock .terms-line { font-size: 12px; }
-    .screen:has(.rv-dock) .auth-body .pad { padding-bottom: 150px !important; }
   }
   @media (max-width: 600px) {
     body { height: 100dvh; background: var(--bg); }
@@ -2255,7 +2256,7 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
     <div class="auth-body">
       <div class="auth-title">Create your account</div>
       <div class="auth-sub">Sign up to start sending money home</div>
-      <div class="pad" style="padding-bottom:120px" oninput="S.su=S.su||{};S.su[event.target.id]=event.target.value">
+      <div class="pad" oninput="S.su=S.su||{};S.su[event.target.id]=event.target.value">
         <div class="btn-row"><div class="field" style="flex:1"><label for="su-first">First name</label><input class="input" id="su-first" autocomplete="given-name" value="${esc(S.su?.['su-first'] ?? 'Nitsuh')}" placeholder="e.g. Abebe"></div>
         <div class="field" style="flex:1"><label for="su-last">Last name</label><input class="input" id="su-last" autocomplete="family-name" value="${esc(S.su?.['su-last'] ?? 'Derseh')}" placeholder="e.g. Kebede"></div></div>
         <div class="field"><label for="su-country">Country of residence</label><select class="select" id="su-country" onchange="setDial(DIAL.find(d => d.n === this.value).k)">${DIAL.map(d => `<option ${d.n === (S.su?.['su-country'] ?? 'United States') ? 'selected' : ''}>${d.n}</option>`).join('')}</select></div>
@@ -2263,14 +2264,15 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
         <div class="field"><label for="su-email">Email</label><input class="input" id="su-email" type="email" autocomplete="email" value="${esc(S.su?.['su-email'] ?? 'nitsuh.derseh@example.com')}" placeholder="you@example.com"></div>
         <div class="field"><label for="su-pw">Password</label><div class="pw-wrap"><input class="input" id="su-pw" type="password" autocomplete="new-password" value="${esc(S.su?.['su-pw'] ?? '')}" oninput="pwRules(this.value)" placeholder="At least 8 characters"><button type="button" onclick="togglePw('su-pw', this)">Show</button></div>
           <div class="rules" id="pw-rules"><span data-r="len">8+ characters</span><span data-r="up">Uppercase letter</span><span data-r="num">A number</span><span data-r="sym">A symbol</span></div></div>
-      </div>
-    </div>
-    </div></div>
-    <div class="bottom-bar rv-dock">
+        <div class="auth-actions">
       <label class="check rv-consent"><input type="checkbox"> <span>Send me offers and rate alerts <span class="muted">(optional)</span></span></label>
       <p class="terms-line">I agree to the <a href="#" onclick="go('legal',{doc:'terms',from:'signup'});return false">Terms of Use</a> and <a href="#" onclick="go('legal',{doc:'privacy'});return false">Privacy Policy</a> of M-PESA Remit.</p>
       <button class="btn btn-primary" id="su-go" disabled onclick="S.user.first=$('#su-first').value;S.user.last=$('#su-last').value;go('otp',{mode:'signup',to:dialCur().c+' '+$('#su-phone').value})">Continue</button>
-    </div>`,
+        </div>
+      </div>
+    </div>
+    </div></div>
+`,
   after: () => { const pw = $('#su-pw'); pwRules(pw ? pw.value : ''); signupValid(); }
 });
 /* mobile country code chooser (sign-up) */
@@ -2556,11 +2558,12 @@ screen('login', 'ON-07', 'Onboarding & KYC', 'Log in', {
         <div class="field"><label for="li-pw">Password</label><div class="pw-wrap"><input class="input" id="li-pw" type="password" autocomplete="current-password" value="Remi!2026" placeholder="Enter your password"><button type="button" onclick="togglePw('li-pw', this)">Show</button></div>
         <div class="errtext" id="li-err" hidden></div></div>
         <button class="link" onclick="go('forgot')">Forgot password?</button>
+        <div class="auth-actions"><button class="btn btn-primary" onclick="doLogin()">Log in</button>
+    <p class="note">New to Remi? <button class="link" onclick="go('signup')">Create an account</button></p></div>
       </div>
     </div>
     </div></div>
-    <div class="bottom-bar"><button class="btn btn-primary" onclick="doLogin()">Log in</button>
-    <p class="note">New to Remi? <button class="link" onclick="go('signup')">Create an account</button></p></div>`
+`
 });
 function doLogin() {
   const id = $('#li-id').value.trim(), pw = $('#li-pw').value, e = $('#li-err');
