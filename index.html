@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#f5f5f5">
 <title>Remi — M-PESA Remit Prototype</title>
 <style>
@@ -1351,6 +1351,7 @@
   .code-panel .sub b { color: var(--ink); white-space: nowrap; }
   .code-panel .pin-msg { margin-bottom: 8px; }
   .deck-hit { position: relative; cursor: text; }
+  .deck { transform-origin: top center; }
   .deck-input { position: absolute; inset: 0; width: 100%; opacity: 0; border: none; font-size: 16px; color: transparent; caret-color: transparent; background: transparent; }
   .code-hint { text-align: center; font-size: 13px; color: var(--muted); margin: 16px 28px 0; line-height: 1.5; }
   .code-hint kbd { font-family: inherit; font-weight: 700; color: var(--ink); background: #fff; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 8px; padding: 1px 6px; font-size: 12px; }
@@ -1682,6 +1683,10 @@
   .ic-star { color: #f59e0b; } .ic-star svg { fill: currentColor; }
 
   /* ===== Mobile browsing: app only, full screen (no sidebar, no phone frame) ===== */
+  /* on-screen keyboard: --kb is its height (set from visualViewport); bottom modals and the dock sit above it */
+  .proc-ov { padding-bottom: calc(10px + var(--kb, 0px)) !important; transition: padding-bottom 0.2s ease; }
+  .overlay { padding-bottom: var(--kb, 0px); transition: padding-bottom 0.2s ease; }
+  .rv-dock { margin-bottom: calc(10px + var(--kb, 0px)); transition: margin-bottom 0.2s ease; }
   @media (max-width: 600px) {
     body { height: 100dvh; background: var(--bg); }
     .sidebar { display: none; }
@@ -2271,6 +2276,24 @@ function deckHTML(id, n) {
     <div class="deck-ok">${ic('check', 3.2)}</div></div>`;
 }
 const deckCards = el => [...el.querySelectorAll('.pcard')];
+/* shrink the digit row to fit narrow phones (cards are laid out in fixed px) */
+function deckFit() {
+  document.querySelectorAll('.deck').forEach(d => {
+    const box = d.parentElement, w = parseFloat(d.style.width) || d.offsetWidth;
+    const avail = box.clientWidth || w, k = Math.min(1, avail / w);
+    d.style.transform = k < 1 ? `scale(${k})` : '';
+    d.style.marginBottom = k < 1 ? `${12 - 64 * (1 - k)}px` : '';
+  });
+}
+/* keyboard height → --kb, so bottom modals move up while typing */
+function kbTrack() {
+  const vv = window.visualViewport; if (!vv) return;
+  const kb = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+  const ph = $('#phone'); if (ph) ph.style.setProperty('--kb', (kb > 60 ? kb : 0) + 'px');
+}
+if (window.visualViewport) { visualViewport.addEventListener('resize', kbTrack); visualViewport.addEventListener('scroll', kbTrack); }
+window.addEventListener('resize', deckFit);
+new MutationObserver(() => { if (document.querySelector('.deck')) deckFit(); }).observe(document.getElementById('phone') || document.body, { childList: true, subtree: true });
 function deckLayout(mode, el = $('#deck')) {
   const cards = deckCards(el), n = cards.length, step = DECK.w + DECK.gap;
   const cx = ((n - 1) * step) / 2;
