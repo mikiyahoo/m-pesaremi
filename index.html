@@ -29,6 +29,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -896,7 +897,7 @@
   .mdl-card { width: 100%; margin: 0 auto; flex-shrink: 0; background: #fff; border-radius: 28px; padding: 10px 16px 22px; text-align: center;
     box-shadow: 0 -8px 30px rgba(17,17,17,0.15); animation: sheetUp 0.35s cubic-bezier(.2,.8,.2,1); }
   .mdl-card .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 0 auto 20px; }
-  .mdl-card h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; margin: 8px 0 6px; padding: 0 40px; }
+  .mdl-card h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; margin: 8px 0 6px; padding: 0 30px; text-wrap: balance; }
   .mdl-card, .proc-sheet, .sheet { position: relative; }
   .mdl-card h2 span { color: inherit; }
   .mdl-card .sub { font-size: 13px; color: var(--muted); line-height: 1.45; margin: 0 2px 14px; }
@@ -920,7 +921,7 @@
   .kyc-card .kyc-actions .btn { margin: 0; width: 100%; }
   .proc-sheet .grab { width: 40px; height: 5px; border-radius: 3px; background: #e2e2e2; margin: 0 auto 20px; }
   .ps-art { position: relative; z-index: 2; overflow: visible; height: 110px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-  .proc-sheet h2 { font-size: 20px; font-weight: 800; padding: 0 40px; }
+  .proc-sheet h2 { font-size: 20px; font-weight: 800; padding: 0 30px; text-wrap: balance; }
   .proc-sheet p { font-size: 13px; color: var(--muted); margin-top: 6px; min-height: 18px; }
   .proc-sheet p.in { animation: stepIn 0.25s ease; }
   @keyframes stepIn { from { transform: translateY(6px); opacity: 0; } }
@@ -1351,7 +1352,7 @@
   .code-panel .sub b { color: var(--ink); white-space: nowrap; }
   .code-panel .pin-msg { margin-bottom: 8px; }
   .deck-hit { position: relative; cursor: text; }
-  .deck { transform-origin: top center; }
+  .deck { transform-origin: top left; }
   .deck-input { position: absolute; inset: 0; width: 100%; opacity: 0; border: none; font-size: 16px; color: transparent; caret-color: transparent; background: transparent; }
   .code-hint { text-align: center; font-size: 13px; color: var(--muted); margin: 16px 28px 0; line-height: 1.5; }
   .code-hint kbd { font-family: inherit; font-weight: 700; color: var(--ink); background: #fff; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 8px; padding: 1px 6px; font-size: 12px; }
@@ -2282,6 +2283,7 @@ function deckFit() {
     const box = d.parentElement, w = parseFloat(d.style.width) || d.offsetWidth;
     const avail = box.clientWidth || w, k = Math.min(1, avail / w);
     d.style.transform = k < 1 ? `scale(${k})` : '';
+    d.style.marginLeft = k < 1 ? `${(avail - w * k) / 2}px` : '';   // centred: equal left/right gap
     d.style.marginBottom = k < 1 ? `${12 - 64 * (1 - k)}px` : '';
   });
 }
