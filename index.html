@@ -679,6 +679,18 @@
   .banner.blue svg { color: var(--blue); }
   .banner.grey { background: var(--soft); color: var(--ink-2); }
   .banner .link { display: inline-block; margin-top: 6px; padding: 0; }
+  .banner.has-x { position: relative; padding-right: 40px; transition: opacity 0.25s ease, transform 0.25s ease; }
+  .banner.out { opacity: 0; transform: translateY(-6px); }
+  .banner-x { position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 8px; border: none; background: transparent; color: inherit; opacity: 0.7; display: flex; align-items: center; justify-content: center; }
+  .banner-x:hover { opacity: 1; background: rgba(0,0,0,0.05); }
+  .banner .banner-x svg { width: 14px; height: 14px; margin: 0; color: inherit; }
+  /* dark theme: lighter banner text so it stays readable */
+  :root[data-theme="dark"] .banner.amber { color: #f3c77a; } :root[data-theme="dark"] .banner.red { color: #f2a9a8; }
+  :root[data-theme="dark"] .banner.green { color: #8fd9a0; } :root[data-theme="dark"] .banner.blue { color: #a9c1f5; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .banner.amber { color: #f3c77a; } :root:not([data-theme]) .banner.red { color: #f2a9a8; }
+    :root:not([data-theme]) .banner.green { color: #8fd9a0; } :root:not([data-theme]) .banner.blue { color: #a9c1f5; }
+  }
 
   /* ===== Bottom nav ===== */
   .bottom-nav {
@@ -708,7 +720,8 @@
   /* home: greeting, wallet and rate stay put; only In progress and below scroll */
   .h-fixed { flex-shrink: 0; }
   .h-pad.h-top { padding-bottom: 0; }
-  .h-scroll > .h-pad > .h-sec:first-child { margin-top: 6px; }
+  .h-scroll > .h-pad { padding-top: 16px; }
+  .h-scroll .h-rate { margin-top: 0; }
   .h-head { display: flex; align-items: center; gap: 12px; padding: 8px 16px 14px; }
   .h-avatar { width: 42px; height: 42px; border-radius: 50%; background: #111; color: #fff; font-weight: 800; font-size: 16px;
     display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
@@ -951,6 +964,9 @@
   .pf-verified { position: absolute; right: 0; bottom: 2px; width: 26px; height: 26px; border-radius: 8px; background: var(--green); color: #fff;
     border: 3px solid var(--bg); display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(50,178,75,0.35); }
   .pf-verified svg { width: 13px; height: 13px; }
+  button.pf-verified { cursor: pointer; padding: 0; }
+  .pf-verified.pending { background: var(--amber); box-shadow: 0 2px 6px rgba(245,158,11,0.35); }
+  .pf-verified.failed { background: var(--red); box-shadow: 0 2px 6px rgba(208,60,59,0.35); }
   /* Welcome v2 */
   .w-hero { position: relative; margin: 6px 16px 0; height: 330px; border-radius: 22px; background: #0d0d0f; overflow: hidden; box-shadow: 0 14px 30px rgba(17,17,17,0.18); }
   .w-map { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -2112,7 +2128,22 @@ function kycBanner() {
     pending: ['blue', 'Verification in review', 'Usually under 15 minutes.', 'View status', "go('kyc-review')"],
     failed: ['red', 'Verification unsuccessful', 'Photo unclear. Please retry.', 'Retry', "go('kyc-failed')"]
   }[k];
+  if (k === 'pending') {   // "in review" notice: closable, and fades out 30 s after it first appears
+    if (S.kycHidden === 'pending') return '';
+    return `<div class="banner ${b[0]} mb16 has-x" id="kycBanner">${ic('shield')}<div><b>${b[1]}</b>${b[2]}<br><button class="link" onclick="${b[4]}">${b[3]} →</button></div>
+      <button class="banner-x" onclick="kycBannerHide()" aria-label="Dismiss">${ic('close', 2.6)}</button></div>`;
+  }
   return `<div class="banner ${b[0]} mb16">${ic(k === 'failed' ? 'alert' : 'shield')}<div><b>${b[1]}</b>${b[2]}<br><button class="link" onclick="${b[4]}">${b[3]} →</button></div></div>`;
+}
+function kycBannerHide() {
+  S.kycHidden = 'pending';
+  const el = $('#kycBanner'); if (!el) return;
+  el.classList.add('out'); setTimeout(() => el.remove(), 250);
+}
+function kycBannerTimer() {
+  if (S.demo.kyc !== 'pending' || S.kycHidden === 'pending') return;
+  if (!S.kycShownAt) S.kycShownAt = Date.now();
+  later(kycBannerHide, Math.max(0, 30000 - (Date.now() - S.kycShownAt)));
 }
 
 /* =====================================================================
@@ -2712,7 +2743,7 @@ screen('kyc-id', 'ON-12', 'Onboarding & KYC', 'Identity documents', {
       ${up('selfie', 'Selfie', 'Look straight at the camera', 'camera')}
       <div class="banner grey mt16">${ic('info')}<div>All four corners, no glare.</div></div>
     </div></div>
-    <div class="bottom-bar"><button class="btn btn-primary" ${ready ? '' : 'disabled'} onclick="S.demo.kyc='pending';syncDemo();go('kyc-review',{},{replace:true})">Submit for verification</button></div>`;
+    <div class="bottom-bar"><button class="btn btn-primary" ${ready ? '' : 'disabled'} onclick="S.demo.kyc='pending';S.kycHidden=null;S.kycShownAt=0;syncDemo();go('kyc-review',{},{replace:true})">Submit for verification</button></div>`;
   }
 });
 
@@ -2774,7 +2805,7 @@ screen('kyc-failed', 'ON-16', 'Onboarding & KYC', 'KYC failed / retry', {
    03 — HOME & NOTIFICATIONS
    ===================================================================== */
 screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
-  after: () => initWalletSlides(),
+  after: () => { initWalletSlides(); kycBannerTimer(); },
   render: () => {
     const hr = new Date().getHours();
     const greet = hr < 12 ? 'Good morning,' : hr < 18 ? 'Good afternoon,' : 'Good evening,';
@@ -2807,6 +2838,8 @@ screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
         </div>
         <button class="h-wtab" onclick="S.homeCollapsed=!S.homeCollapsed;render()" aria-label="${S.homeCollapsed ? 'Show' : 'Hide'} quick actions" aria-expanded="${!S.homeCollapsed}">${ic('down', 2.6)}</button>
       </div>
+    </div></div>
+    <div class="scroll h-scroll"><div class="h-pad">
       <div class="h-rate">
         <button class="top" onclick="startSend()" aria-label="See today's rate and start a transfer">
           <div class="ric">${ic('swap', 2.2)}</div>
@@ -2816,8 +2849,6 @@ screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
           ${ic('chev', 2.2).replace('<svg', '<svg class="chev"')}</button>
         <button class="btn btn-primary" onclick="startSend()"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 2 2 10.2l7.4 3.1L20 4.8l-8.6 10.4V22l3.9-5.2 4.7 2z"/></svg> Send money</button>
       </div>
-    </div></div>
-    <div class="scroll h-scroll"><div class="h-pad">
       ${active.length ? `<div class="h-sec"><h3>In progress</h3>${seeAll("S.txFilter='active';tab('history')")}</div>
         <div class="t-cards"><div class="t-group-card">${active.map(txLine).join('')}</div></div>` : ''}
       <div class="h-sec"><h3>Send again</h3>${seeAll("tab('recipients')")}</div>
@@ -4100,9 +4131,11 @@ screen('profile', 'PR-01', 'Profile & Security', 'Profile', {
     return `${topbar({ left: '', title: '' })}<div class="scroll">
     <div class="result" style="padding-top:0">
       <div class="pf-pic"><div class="avatar lg">${S.user.photo ? `<img src="${esc(S.user.photo)}" alt="" onerror="this.remove()">` : ''}${esc(S.user.first[0] + S.user.last[0])}</div>
-        ${k === 'approved' ? `<span class="pf-verified" title="Identity verified" aria-label="Identity verified">${ic('check', 3.4)}</span>` : ''}</div>
+        ${k === 'approved' ? `<span class="pf-verified" title="Identity verified" aria-label="Identity verified">${ic('check', 3.4)}</span>`
+          : k === 'pending' ? `<button class="pf-verified pending" onclick="go('kyc-review')" title="Verification in review" aria-label="Verification in review, view status">${ic('clock', 2.8)}</button>`
+          : k === 'failed' ? `<button class="pf-verified failed" onclick="go('kyc-failed')" title="Verification failed" aria-label="Verification failed, retry">${ic('alert', 2.8)}</button>` : ''}</div>
       <h2 class="mt12" style="margin-bottom:4px">${esc(S.user.first + ' ' + S.user.last)}</h2><p class="small">${esc(S.user.email)}</p>
-      ${k === 'approved' ? '' : `<span class="chip ${kc[0]} mt8" style="cursor:pointer" onclick="go('kyc-intro')">${ic('shield').replace('<svg', '<svg width="12" height="12"')} ${kc[1]}</span>`}</div>
+      ${k === 'approved' ? '' : `<span class="chip ${kc[0]} mt8" style="cursor:pointer" onclick="go(${k === 'pending' ? "'kyc-review'" : k === 'failed' ? "'kyc-failed'" : "'kyc-intro'"})">${ic('shield').replace('<svg', '<svg width="12" height="12"')} ${kc[1]}</span>`}</div>
     <div class="pad">
       <div class="card">${rowLink('user', 'Personal information', 'Name, address, contact details', "go('personal')")}
         ${rowLink('card', 'Payment methods', S.paymentMethods.length + ' saved', "go('payment-methods')")}
@@ -4440,7 +4473,7 @@ function buildSidebar() {
     <div class="sidebar-sub">M-PESA Remit \u2022 mapped to URS v1.0 screen IDs</div>
     <div class="demo-codes">PIN <b>534312</b> • OTP any but <b>000000</b><br>Card <b>4242 4242 4242 4242</b><br>Bank acct starting <b>0000</b> fails</div>
     ${accGroup('Demo controls', `<div style="padding:0 22px 4px;font-size:12px;color:rgba(255,255,255,.6)">
-      <label>KYC status<select id="demo-kyc" ${sel} onchange="S.demo.kyc=this.value;render()"><option value="approved">Approved</option><option value="none">Not started</option><option value="pending">In review</option><option value="failed">Failed</option></select></label>
+      <label>KYC status<select id="demo-kyc" ${sel} onchange="S.demo.kyc=this.value;S.kycHidden=null;S.kycShownAt=0;render()"><option value="approved">Approved</option><option value="none">Not started</option><option value="pending">In review</option><option value="failed">Failed</option></select></label>
       <label style="display:block;margin-top:8px">Next transfer outcome<select ${sel} onchange="S.demo.outcome=this.value"><option value="success">Success</option><option value="compliance">Held for compliance review</option><option value="payment_failed">Payment declined</option></select></label>
     </div>`)}
     ${Object.entries(groups).map(([g, list]) => accGroup(g, list.map(s =>
