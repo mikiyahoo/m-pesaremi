@@ -222,13 +222,9 @@
   .pad { padding: 0 16px 20px; }
 
   /* Status Bar */
+  /* no fake clock/battery: just a spacer for the phone notch / frame corner, so the Back header sits at the top */
   .status-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 22px 6px;
-    font-size: 13px;
-    font-weight: 600;
+    height: max(14px, env(safe-area-inset-top, 0px));
     background: var(--bg);
     flex-shrink: 0;
   }
@@ -1551,7 +1547,7 @@
   .screen.auth-screen { background: var(--card); }
   .screen.auth-screen .status-bar { background: transparent; position: absolute; top: 0; left: 0; right: 0; z-index: 2; color: #fff; }
   .screen.auth-screen .status-bar svg { stroke: #fff; }
-  .screen.auth-screen .topbar { position: absolute; top: 44px; left: 0; right: 0; z-index: 2; }
+  .screen.auth-screen .topbar { position: absolute; top: max(14px, env(safe-area-inset-top, 0px)); left: 0; right: 0; z-index: 2; }
   .screen.auth-screen .topbar .tb-btn { color: #fff; }
   .screen.auth-screen .topbar .tb-btn svg { stroke: #fff; }
   .screen.auth-screen .scroll { background: var(--card); overflow: hidden; }
@@ -1725,7 +1721,8 @@
     .sidebar { display: none; }
     .main-content { padding: 0; overflow: hidden; }
     .phone { width: 100vw; height: 100dvh; min-height: 0; max-height: none; border: none; border-radius: 0; box-shadow: none; }
-    .screen > .status-bar { visibility: hidden; height: env(safe-area-inset-top, 0px); padding: 0; }
+    .screen > .status-bar { height: max(4px, env(safe-area-inset-top, 0px)); }
+    .screen.auth-screen .topbar { top: max(4px, env(safe-area-inset-top, 0px)); }
     .bottom-nav, .bottom-bar { padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
     .toast { bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
     .sp-top { margin-top: calc(22% + env(safe-area-inset-top, 0px)); }
@@ -2041,10 +2038,7 @@ function render() {
 
 /* ---------- Shared fragments ---------- */
 function statusBar() {
-  const t = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false });
-  return `<div class="status-bar"><span>${t}</span><span class="icons">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
-    <span class="battery">76</span></span></div>`;
+  return `<div class="status-bar" aria-hidden="true"></div>`;
 }
 function topbar({ title = '', left = 'back', right = '', onLeft = 'back()', onRight = '' } = {}) {
   const L = left === 'back' ? `<button class="tb-btn" onclick="${onLeft}" aria-label="Back">${ic('back', 2.4)}<span>Back</span></button>`
