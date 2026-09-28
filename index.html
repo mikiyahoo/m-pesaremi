@@ -879,30 +879,30 @@
   .logo-mark.mp { width: 124px; height: 124px; border-radius: 28px; padding: 0; }
   .proc-ov .proc-logo { margin-bottom: -6px; }
   /* ===== FX Amount page redesign ===== */
-  .fx-amount-wrap { margin-bottom: 12px; }
-  .fx-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-  .fx-big-card { background: var(--soft); border: 1.5px solid var(--line-2); border-radius: var(--radius); padding: 14px; }
-  .fx-cur-badge { display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 800; color: var(--ink); background: var(--soft); padding: 7px 11px; border-radius: 12px; flex-shrink: 0; }
+  .fx-amount-wrap { margin-bottom: 8px; }
+  .fx-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .fx-big-card { background: var(--soft); border: 1.5px solid var(--line-2); border-radius: var(--radius); padding: 6px; }
+  .fx-cur-badge { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--ink); background: var(--soft); padding: 6px 10px; border-radius: 12px; flex-shrink: 0; }
   .fx-cur-badge .flag { width: 20px; height: 14px; }
   /* From / To row */
-  .fx-row { display: flex; align-items: flex-end; gap: 10px; margin: 14px 0; }
+  .fx-row { display: flex; align-items: flex-end; gap: 10px; margin: 10px 0; }
   .fx-col { flex: 1; display: flex; flex-direction: column; gap: 5px; }
   .fx-col-lbl { font-size: 12px; font-weight: 600; color: var(--muted); }
-  .fx-pill { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px; background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer; width: 100%; text-align: left; transition: border-color .15s; }
+  .fx-pill { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer; width: 100%; text-align: left; transition: border-color .15s; }
   .fx-pill:hover:not([disabled]) { border-color: var(--red); }
   .fx-pill .fp-cur { font-size: 15px; font-weight: 800; color: var(--ink); flex: 1; }
   .fx-pill > svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
-  .fx-swap { width: 44px; height: 44px; border-radius: 14px; background: var(--red-soft); color: var(--red); border: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: transform 0.15s, background 0.15s; }
+  .fx-swap { width: 40px; height: 40px; border-radius: 14px; background: var(--red-soft); color: var(--red); border: none; display: flex; align-items: center; justify-content: center; flex-shrink: 0; cursor: pointer; transition: transform 0.15s, background 0.15s; }
   .fx-swap:hover { background: #FCD8D8; }
   .fx-swap:active { transform: scale(0.92); }
   .fx-swap svg { width: 18px; height: 18px; }
   /* Rate label + receive card */
-  .fx-recv-wrap { background: var(--soft); border: 1.5px solid var(--line-2); border-radius: var(--radius); padding: 14px; margin-top: 4px; }
-  .fx-recv-rate { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 10px; text-align: center; }
+  .fx-recv-wrap { background: var(--soft); border: 1.5px solid var(--line-2); border-radius: var(--radius); padding: 8px 6px 6px; margin-top: 4px; }
+  .fx-recv-rate { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; text-align: center; }
   .fx-recv-rate b { color: var(--ink); }
-  .fx-recv-inner { background: var(--card); border: 1.5px solid var(--line); border-radius: 14px; padding: 10px 14px; display: flex; align-items: center; gap: 10px; transition: box-shadow 0.15s; }
+  .fx-recv-inner { background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 6px 12px; display: flex; align-items: center; gap: 10px; transition: box-shadow 0.15s; }
   .fx-recv-inner:focus-within { box-shadow: 0 0 0 2px var(--red); }
-  .fx-recv-inner input { flex: 1; min-width: 0; border: none; outline: none; font-size: 36px; font-weight: 800; background: transparent; color: var(--ink); }
+  .fx-recv-inner input { flex: 1; min-width: 0; border: none; outline: none; font-size: 28px; font-weight: 800; background: transparent; color: var(--ink); }
   .row:disabled:hover { background: none; }
   .rv-consent { padding: 0 2px; font-weight: 600; font-size: 13px; align-items: center; }
   .rv-consent input { margin-top: 0; }
@@ -1492,7 +1492,7 @@
   .auth-header {
     position: relative;
     width: 100%;
-    height: 280px;
+    height: clamp(176px, 30vh, 280px);   /* shorter red header on short phones */
     flex-shrink: 0;
     overflow: hidden;
   }
@@ -1708,6 +1708,18 @@
   .proc-ov { padding-bottom: calc(10px + var(--kb, 0px)) !important; transition: padding-bottom 0.2s ease; }
   .overlay { padding-bottom: var(--kb, 0px); transition: padding-bottom 0.2s ease; }
   .rv-dock { margin-bottom: calc(10px + var(--kb, 0px)); transition: margin-bottom 0.2s ease; }
+  /* short phones: give the form more room on login / sign-up */
+  @media (max-height: 760px) {
+    .auth-header-inner { padding-top: 40px; padding-bottom: 44px; }
+    .auth-header-inner img { width: 44%; max-width: 160px; }
+    .auth-body { margin-top: -44px; }
+    .auth-title { font-size: 21px; padding-top: 16px; }
+    .auth-sub { padding-bottom: 10px; }
+    .auth-body .field { margin-bottom: 10px; }
+    .rv-dock { padding: 12px 14px 14px; gap: 8px; }
+    .rv-dock .terms-line { font-size: 12px; }
+    .screen:has(.rv-dock) .auth-body .pad { padding-bottom: 150px !important; }
+  }
   @media (max-width: 600px) {
     body { height: 100dvh; background: var(--bg); }
     .sidebar { display: none; }
