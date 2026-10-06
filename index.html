@@ -486,6 +486,41 @@
   }
   .date-input:focus { border-color: var(--red); background: var(--card); }
   .date-sep { font-size: 14px; font-weight: 700; color: var(--muted-2); padding-bottom: 9px; }
+  .date-btn { display: flex; align-items: center; gap: 7px; text-align: left; cursor: pointer; white-space: nowrap; overflow: hidden; }
+  .date-btn svg { width: 15px; height: 15px; color: var(--red); flex-shrink: 0; }
+  .date-btn span { overflow: hidden; text-overflow: ellipsis; }
+  .date-btn.is-empty span { color: var(--muted); font-weight: 500; }
+  /* range picker */
+  .rp-ov { position: absolute; inset: 0; z-index: 60; background: rgba(17,17,17,0.35); display: flex; align-items: flex-end; padding: 0 10px calc(10px + var(--kb, 0px)); animation: fade 0.18s ease; }
+  .rp-card { position: relative; width: 100%; background: var(--card); border-radius: 28px; padding: 10px 16px 18px; box-shadow: 0 -8px 30px rgba(17,17,17,0.15); animation: sheetUp 0.35s cubic-bezier(.2,.8,.2,1); max-height: 92%; overflow-y: auto; }
+  .rp-card .grab { width: 40px; height: 5px; border-radius: 3px; background: var(--soft-2); margin: 0 auto 16px; }
+  .rp-h { font-size: 18px; font-weight: 800; margin-bottom: 12px; padding-right: 44px; }
+  .rp-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
+  .rp-tab { flex: 1; text-align: left; background: var(--soft); border: 1.5px solid var(--line); border-radius: 14px; padding: 8px 12px; cursor: pointer; }
+  .rp-tab small { display: block; font-size: 11px; font-weight: 600; color: var(--muted); }
+  .rp-tab b { display: block; font-size: 14px; font-weight: 800; color: var(--ink); margin-top: 1px; }
+  .rp-tab.on { border-color: var(--red); background: var(--card); box-shadow: 0 0 0 3px rgba(208,60,59,0.1); }
+  .rp-tab.on small { color: var(--red); }
+  .rp-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .rp-arrow { width: 36px; height: 36px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--card); color: var(--ink-2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .rp-arrow svg { width: 15px; height: 15px; }
+  .rp-sel { position: relative; flex: 1; }
+  .rp-sel select { width: 100%; height: 36px; appearance: none; -webkit-appearance: none; border: 1.5px solid var(--line); border-radius: 10px; background: var(--card); color: var(--ink); font: inherit; font-size: 13px; font-weight: 700; padding: 0 28px 0 12px; }
+  .rp-sel svg { position: absolute; right: 9px; top: 50%; width: 13px; height: 13px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+  .rp-grid { display: grid; grid-template-columns: repeat(7, 1fr); row-gap: 4px; }
+  .rp-wk span { text-align: center; font-size: 11px; font-weight: 700; color: var(--muted); padding: 6px 0; }
+  .rp-d { height: 38px; border: none; background: none; padding: 0; display: flex; align-items: center; justify-content: center; font: inherit; cursor: pointer; }
+  .rp-d span { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: var(--ink); }
+  .rp-d:hover:not([disabled]) span { background: var(--soft); }
+  .rp-d.out span { color: var(--muted-2); }
+  .rp-d[disabled] { cursor: default; }
+  .rp-d[disabled] span { color: var(--muted-2); opacity: 0.45; }
+  .rp-d.td span { box-shadow: inset 0 0 0 1.5px var(--red-light); }
+  .rp-d.in { background: var(--red-soft); }
+  .rp-d.in span { color: var(--red); }
+  .rp-d.rs { background: linear-gradient(90deg, transparent 50%, var(--red-soft) 50%); }
+  .rp-d.re { background: linear-gradient(90deg, var(--red-soft) 50%, transparent 50%); }
+  .rp-d.st span, .rp-d.en span { background: var(--red) !important; color: #fff; font-weight: 800; box-shadow: 0 4px 10px rgba(208,60,59,0.3); }
   .active-filter-summary {
     display: flex; align-items: center; justify-content: space-between; gap: 8px;
     background: var(--red-soft); color: var(--red); border-radius: 12px;
@@ -545,7 +580,7 @@
   .pi-ok { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--green); white-space: nowrap; margin-top: 2px; }
   .pi-ok svg { width: 16px; height: 16px; padding: 3px; border-radius: 50%; background: var(--green); color: #fff; }
   .pi-lock { width: 15px; height: 15px; color: var(--muted); margin-top: 2px; flex-shrink: 0; }
-  .pi-close { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: none; border: none; padding: 14px 4px; margin-top: 8px; color: var(--red); font-size: 14px; font-weight: 700; }
+  .pi-close { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: none; border: none; padding: 10px 4px; margin-top: 0; color: var(--red); font-size: 14px; font-weight: 700; }
   .pi-close svg { width: 22px; height: 22px; }
   .pw-wrap { position: relative; }
   .pw-wrap .input { padding-right: 60px; }
@@ -722,7 +757,30 @@
   .h-pad.h-top { padding-bottom: 0; }
   .h-scroll > .h-pad { padding-top: 16px; }
   .h-scroll .h-rate { margin-top: 0; }
-  .h-head { display: flex; align-items: center; gap: 12px; padding: 8px 16px 14px; }
+  .h-head { display: flex; align-items: center; gap: 12px; padding: 8px 16px 14px; position: relative; z-index: 6; }
+  /* KYC tooltip under the bell — silver card, red accents, arrow pointing at the bell */
+  .kyc-tip { position: absolute; top: calc(100% - 8px); right: 10px; width: 250px; display: flex; align-items: center; gap: 4px;
+    background: linear-gradient(180deg, #ffffff, #eeeef1); border: 1px solid #dcdce2; border-radius: 14px; padding: 8px 6px 8px 10px;
+    box-shadow: 0 10px 28px rgba(17,17,17,0.16); animation: tipIn 0.25s ease; transition: opacity 0.25s ease, transform 0.25s ease; }
+  .kyc-tip::before { content: ''; position: absolute; top: -6px; right: 20px; width: 12px; height: 12px; background: #fff; border-left: 1px solid #dcdce2; border-top: 1px solid #dcdce2; transform: rotate(45deg); border-radius: 2px 0 0 0; }
+  .kyc-tip.out { opacity: 0; transform: translateY(-6px); }
+  @keyframes tipIn { from { opacity: 0; transform: translateY(-6px); } }
+  .kyc-tip .kt-body { flex: 1; min-width: 0; display: flex; align-items: center; gap: 10px; background: none; border: none; padding: 0; text-align: left; cursor: pointer; }
+  .kyc-tip .kt-ic { width: 32px; height: 32px; border-radius: 10px; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .kyc-tip .kt-ic svg { width: 16px; height: 16px; }
+  .kyc-tip .kt-tx b { display: block; font-size: 13px; font-weight: 800; color: #111; }
+  .kyc-tip .kt-tx small { display: block; font-size: 11.5px; color: #6b6b73; margin-top: 1px; }
+  .kyc-tip .kt-x { width: 26px; height: 26px; border-radius: 8px; border: none; background: transparent; color: #6b6b73; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .kyc-tip .kt-x:hover { background: rgba(0,0,0,0.06); }
+  .kyc-tip .kt-x svg { width: 13px; height: 13px; }
+  :root[data-theme="dark"] .kyc-tip { background: linear-gradient(180deg, #2c2c32, #222227); border-color: #3a3a42; }
+  :root[data-theme="dark"] .kyc-tip::before { background: #2c2c32; border-color: #3a3a42; }
+  :root[data-theme="dark"] .kyc-tip .kt-tx b { color: #f2f2f3; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) .kyc-tip { background: linear-gradient(180deg, #2c2c32, #222227); border-color: #3a3a42; }
+    :root:not([data-theme]) .kyc-tip::before { background: #2c2c32; border-color: #3a3a42; }
+    :root:not([data-theme]) .kyc-tip .kt-tx b { color: #f2f2f3; }
+  }
   .h-avatar { width: 42px; height: 42px; border-radius: 50%; background: #111; color: #fff; font-weight: 800; font-size: 16px;
     display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
   .h-avatar { border: none; padding: 0; }
@@ -762,6 +820,9 @@
   .h-rate .l1 { font-size: 11px; color: var(--ink-2); font-weight: 500; }
   .h-rate .l2 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; margin: 2px 0 3px; white-space: nowrap; }
   .h-rate .l2 span { color: var(--red); }
+  .h-rate .l2 .bonus { font-style: normal; font-size: 12px; font-weight: 700; color: var(--red); letter-spacing: 0; }
+  .h-rate { position: relative; }
+  .h-bonus-tag { position: absolute; top: 0; right: 0; z-index: 1; background: var(--red); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.2px; padding: 5px 12px 5px 14px; border-radius: 0 15px 0 14px; pointer-events: none; }
   .h-rate .l3 { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .h-rate .chev { width: 18px; height: 18px; color: var(--ink-2); flex-shrink: 0; }
   .h-rate .btn { margin-top: 10px; height: 44px; font-size: 14px; border-radius: 12px; box-shadow: none; }
@@ -805,19 +866,6 @@
   .h-pill { display: inline-flex; align-items: center; gap: 4px; background: var(--amber-soft); color: #C77A06; font-size: 10px; font-weight: 800; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 999px; text-transform: uppercase; }
   .h-pill svg { width: 11px; height: 11px; }
 
-  .h-chips { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 2px 16px 4px; }
-  .h-chips::-webkit-scrollbar { display: none; }
-  .h-add { width: 50px; height: 50px; flex-shrink: 0; border-radius: 16px; border: 1.5px dashed var(--line-2); background: var(--card); color: var(--ink);
-    display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, color 0.15s; }
-  .h-add:hover { border-color: var(--red); color: var(--red); }
-  .h-add svg { width: 20px; height: 20px; }
-  .h-chip { height: 50px; flex-shrink: 0; display: flex; align-items: center; gap: 10px; padding: 0 16px 0 7px; border-radius: 16px;
-    background: var(--card); border: 1px solid var(--line); box-shadow: 0 3px 12px rgba(17,17,17,0.04); text-align: left; transition: border-color 0.15s; }
-  .h-chip:hover { border-color: var(--line-2); }
-  .h-chip .pt { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; object-fit: cover; }
-  .h-chip .ct { display: flex; flex-direction: column; line-height: 1.2; }
-  .h-chip .cn { font-size: 13px; font-weight: 700; color: var(--ink); white-space: nowrap; }
-  .h-chip .ca { font-size: 11px; color: var(--muted); letter-spacing: 0.5px; margin-top: 2px; white-space: nowrap; }
   .h-favs { display: flex; gap: 18px; padding: 12px 14px; overflow-x: auto; scrollbar-width: none; }
   .h-favs::-webkit-scrollbar { display: none; }
   .h-fav { display: flex; flex-direction: column; align-items: center; gap: 6px; background: none; border: none; flex-shrink: 0; width: 56px; font-size: 12px; font-weight: 500; color: var(--ink); }
@@ -915,6 +963,9 @@
   .row:disabled:hover { background: none; }
   .rv-consent { padding: 0 2px; font-weight: 600; font-size: 13px; align-items: center; }
   .rv-consent input { margin-top: 0; }
+  .rv-consent.terms-check { align-items: flex-start; }
+  .rv-consent.terms-check input { margin-top: 1px; }
+  .rv-consent.terms-check .terms-line { padding: 0; font-weight: 400; }
   /* processing: dimmed page + bottom card */
   .proc-ov { position: absolute; inset: 0; z-index: 40; background: rgba(17,17,17,0.35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
     display: flex; align-items: flex-end; padding: 0 10px 10px; animation: fade 0.2s ease; }
@@ -997,12 +1048,6 @@
   .w-copy h1 { font-size: 26px; font-weight: 900; letter-spacing: -0.8px; line-height: 1.12; margin-top: 4px; }
   .w-copy h1 span { color: inherit; }
   .w-copy p { font-size: 13px; color: var(--muted); line-height: 1.55; margin-top: 10px; }
-  .w-feats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 16px; text-align: center; }
-  .w-feats div { display: flex; flex-direction: column; align-items: center; }
-  .w-feats .wf { width: 44px; height: 44px; border-radius: 16px; background: var(--red-soft); color: var(--red); display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
-  .w-feats .wf svg { width: 21px; height: 21px; }
-  .w-feats b { font-size: 12px; font-weight: 700; }
-  .w-feats small { font-size: 10px; color: var(--muted); line-height: 1.35; margin-top: 3px; padding: 0 2px; }
   .w-cta { justify-content: center; position: relative; border-radius: 16px; }
   .w-cta svg { position: absolute; right: 20px; width: 20px; height: 20px; }
   .w-login { border-radius: 16px; }
@@ -1504,7 +1549,7 @@
   .auth-header {
     position: relative;
     width: 100%;
-    height: clamp(176px, 30vh, 280px);   /* shorter red header on short phones */
+    height: clamp(176px, 28vh, 232px);   /* shorter red header on short phones */
     flex-shrink: 0;
     overflow: hidden;
   }
@@ -1723,7 +1768,7 @@
   .overlay { padding-bottom: var(--kb, 0px); transition: padding-bottom 0.2s ease; }
   .rv-dock { margin-bottom: calc(10px + var(--kb, 0px)); transition: margin-bottom 0.2s ease; }
   /* login / sign-up: the red header stays put; the white sheet scrolls up over the logo until it meets the Back bar */
-  .auth-layout { --hdr: clamp(176px, 30vh, 280px); --ovl: 52px; --auth-top: calc(max(14px, env(safe-area-inset-top, 0px)) + 48px); position: relative; }
+  .auth-layout { --hdr: clamp(176px, 28vh, 232px); --ovl: 52px; --auth-top: calc(max(14px, env(safe-area-inset-top, 0px)) + 48px); position: relative; }
   .auth-layout > .auth-header { position: absolute; top: 0; left: 0; right: 0; height: var(--hdr); }
   .auth-layout > .auth-body {
     position: absolute; top: var(--auth-top); left: 0; right: 0; bottom: 0; z-index: 1;
@@ -1801,6 +1846,7 @@ const P = {
   store: '<path d="M3 9l1-5h16l1 5"/><path d="M4 9v11h16V9"/><path d="M9 20v-6h6v6"/>',
   check: '<polyline points="20 6 9 17 4 12"/>',
   alert: '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>',
+  calendar: '<rect x="3" y="4.5" width="18" height="17" rx="3"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/>',
   moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
   phone: '<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
@@ -1863,7 +1909,7 @@ const FLAGS = {
 const CFG = {
   sendCurrency: 'USD',
   rate: 160.80,                 // ETB per 1 USD (SAMPLE — FX provider TBD)
-  promoBonus: 0.10,             // 10% bonus on ETB received (existing Remi promo)
+  promoBonus: 0.16,             // SAMPLE: 16% bonus on ETB received (Remi promo)
   quoteSeconds: 600,            // quote locked for 10 min (SAMPLE)
   minSend: 10, maxSend: 2999,   // per-transfer limits (SAMPLE — regulatory/partner)
   dailyLimit: 5000, monthlyLimit: 15000,
@@ -2142,12 +2188,16 @@ function kycBanner() {
     pending: ['blue', 'Verification in review', 'Usually under 15 minutes.', 'View status', "go('kyc-review')"],
     failed: ['red', 'Verification unsuccessful', 'Photo unclear. Please retry.', 'Retry', "go('kyc-failed')"]
   }[k];
-  if (k === 'pending') {   // "in review" notice: closable, and fades out 30 s after it first appears
-    if (S.kycHidden === 'pending') return '';
-    return `<div class="banner ${b[0]} mb16 has-x" id="kycBanner">${ic('shield')}<div><b>${b[1]}</b>${b[2]}<br><button class="link" onclick="${b[4]}">${b[3]} →</button></div>
-      <button class="banner-x" onclick="kycBannerHide()" aria-label="Dismiss">${ic('close', 2.6)}</button></div>`;
-  }
+  if (k === 'pending') return '';   // shown as a tooltip on the bell instead (kycTip)
   return `<div class="banner ${b[0]} mb16">${ic(k === 'failed' ? 'alert' : 'shield')}<div><b>${b[1]}</b>${b[2]}<br><button class="link" onclick="${b[4]}">${b[3]} →</button></div></div>`;
+}
+/* "Verification in review": a small tooltip pointing at the bell; closable, gone after 10 s, kept in Notifications */
+function kycTip() {
+  if (S.demo.kyc !== 'pending' || S.kycHidden === 'pending') return '';
+  return `<div class="kyc-tip" id="kycBanner" role="status">
+    <button class="kt-body" onclick="kycBannerHide();go('kyc-review')"><span class="kt-ic">${ic('shield', 2.2)}</span>
+      <span class="kt-tx"><b>Verification in review</b><small>Usually under 15 minutes</small></span></button>
+    <button class="kt-x" onclick="kycBannerHide()" aria-label="Dismiss">${ic('close', 2.6)}</button></div>`;
 }
 function kycBannerHide() {
   S.kycHidden = 'pending';
@@ -2157,7 +2207,14 @@ function kycBannerHide() {
 function kycBannerTimer() {
   if (S.demo.kyc !== 'pending' || S.kycHidden === 'pending') return;
   if (!S.kycShownAt) S.kycShownAt = Date.now();
-  later(kycBannerHide, Math.max(0, 30000 - (Date.now() - S.kycShownAt)));
+  later(kycBannerHide, Math.max(0, 10000 - (Date.now() - S.kycShownAt)));
+}
+/* keep a "Verification in review" item in Notifications while KYC is pending */
+function kycNotifSync() {
+  const i = S.notifications.findIndex(n => n.id === 'kyc-review');
+  if (S.demo.kyc === 'pending') {
+    if (i < 0) S.notifications.unshift({ id: 'kyc-review', kind: 'processing', title: 'Verification in review', body: 'We’re checking your ID. This usually takes under 15 minutes.', date: new Date().toISOString(), unread: true, go: 'kyc-review' });
+  } else if (i >= 0) S.notifications.splice(i, 1);
 }
 
 /* =====================================================================
@@ -2247,14 +2304,8 @@ screen('welcome', 'ON-02', 'Onboarding & KYC', 'Welcome', {
       <div class="w-bub w-done"><span class="w-ok">${ic('check', 3.2)}</span><div><b class="g">Delivered</b><span>M-PESA Wallet</span><small>in 2 minutes</small></div>${ic('chev', 2.4)}</div>
     </div>
     <div class="w-copy">
-      <h1>Send money home to <span>Ethiopia</span>, in minutes.</h1>
-      <p>Pay out to M-PESA, banks or cash pickup. Every fee shown upfront.</p>
-      <div class="w-feats">
-        <div><span class="wf">${ic('bolt', 2)}</span><b>Fast</b><small>In minutes</small></div>
-        <div><span class="wf">${ic('shield', 2)}</span><b>Secure</b><small>Protected</small></div>
-        <div><span class="wf">${ic('globe', 2)}</span><b>Wide reach</b><small>Bank, M-PESA, cash</small></div>
-        <div><span class="wf">${ic('percent', 2)}</span><b>Transparent</b><small>Low fees</small></div>
-      </div>
+      <h1>Send money home to <span>Ethiopia</span>, instantly.</h1>
+      <p>Pay out to M-PESA or banks. Every fee shown upfront.</p>
     </div></div>
     <div class="bottom-bar">
       <button class="btn btn-primary w-cta" onclick="go('signup')"><span>Create account</span>${ic('arrowRight', 2.4)}</button>
@@ -2279,7 +2330,7 @@ screen('signup', 'ON-03', 'Onboarding & KYC', 'Sign up', {
           <div class="rules" id="pw-rules"><span data-r="len">8+ characters</span><span data-r="up">Uppercase letter</span><span data-r="num">A number</span><span data-r="sym">A symbol</span></div></div>
         <div class="auth-actions">
       <label class="check rv-consent"><input type="checkbox"> <span>Send me offers and rate alerts <span class="muted">(optional)</span></span></label>
-      <p class="terms-line">I agree to the <a href="#" onclick="go('legal',{doc:'terms',from:'signup'});return false">Terms of Use</a> and <a href="#" onclick="go('legal',{doc:'privacy'});return false">Privacy Policy</a> of M-PESA Remit.</p>
+      <label class="check rv-consent terms-check"><input type="checkbox" id="su-terms" ${S.termsAccepted ? 'checked' : ''} onchange="S.termsAccepted=this.checked;signupValid()"> <span class="terms-line">I agree to the <a href="#" onclick="go('legal',{doc:'terms',from:'signup'});return false">Terms of Use</a> and <a href="#" onclick="go('legal',{doc:'privacy'});return false">Privacy Policy</a> of M-PESA Remit.</span></label>
       <button class="btn btn-primary" id="su-go" disabled onclick="S.user.first=$('#su-first').value;S.user.last=$('#su-last').value;go('otp',{mode:'signup',to:dialCur().c+' '+$('#su-phone').value})">Continue</button>
         </div>
       </div>
@@ -2334,7 +2385,8 @@ function pwConfirmCheck() {
 function signupValid() {
   const pw = $('#su-pw')?.value || '';
   const ok = pw.length >= 8 && /[A-Z]/.test(pw) && /\d/.test(pw) && /[^A-Za-z0-9]/.test(pw);
-  const b = $('#su-go'); if (b) b.disabled = !ok;
+  const terms = !!$('#su-terms')?.checked;   // Terms of Use & Privacy Policy must be accepted
+  const b = $('#su-go'); if (b) b.disabled = !(ok && terms);
 }
 function togglePw(id, btn) { const i = document.getElementById(id); i.type = i.type === 'password' ? 'text' : 'password'; btn.textContent = i.type === 'password' ? 'Show' : 'Hide'; }
 
@@ -2825,15 +2877,15 @@ screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
   render: () => {
     const hr = new Date().getHours();
     const greet = hr < 12 ? 'Good morning,' : hr < 18 ? 'Good afternoon,' : 'Good evening,';
+    kycNotifSync();
     const unread = S.notifications.filter(n => n.unread).length;
-    const active = S.transactions.filter(t => ['submitted', 'compliance', 'processing', 'payout'].includes(t.status));
     const recent = S.transactions.slice(0, 5);   // same list as Activity (in-progress transfers included)
     const favs = S.beneficiaries.filter(b => b.fav);
     const seeAll = fn => `<button class="h-viewall" onclick="${fn}">View all ${ic('chev', 2.4)}</button>`;
     return `<div class="h-fixed">
     <div class="h-head"><button class="h-avatar" onclick="tab('profile')" aria-label="Your profile">${S.user.photo ? `<img src="${esc(S.user.photo)}" alt="" onerror="this.remove()">` : ''}${esc(S.user.first[0] + S.user.last[0])}</button>
       <div class="h-hello"><p>${greet}</p><h2>${esc(S.user.first)} <span>${esc(S.user.last)}</span></h2></div>
-      <button class="h-bell" onclick="go('notifications')" aria-label="Notifications, ${unread} unread">${ic('bell')}${unread ? `<span class="dot">${unread}</span>` : ''}</button></div>
+      <button class="h-bell" onclick="go('notifications')" aria-label="Notifications, ${unread} unread">${ic('bell')}${unread ? `<span class="dot">${unread}</span>` : ''}</button>${kycTip()}</div>
     <div class="h-pad h-top">
       ${kycBanner()}
       <div class="h-wallet ${S.homeCollapsed ? 'collapsed' : ''}">
@@ -2857,33 +2909,20 @@ screen('home', 'HM-01', 'Home & Navigation', 'Home dashboard', {
     </div></div>
     <div class="scroll h-scroll"><div class="h-pad">
       <div class="h-rate">
+        ${CFG.promoBonus ? `<span class="h-bonus-tag">Bonus ${Math.round(CFG.promoBonus * 100)}%</span>` : ''}
         <button class="top" onclick="startSend()" aria-label="See today's rate and start a transfer">
           <div class="ric">${ic('swap', 2.2)}</div>
           <div class="rt"><div class="l1">Today’s rate • USD → ETB</div>
             <div class="l2">1 USD = <span>${CFG.rate.toFixed(2)} ETB</span></div>
-            <div class="l3">+${Math.round(CFG.promoBonus * 100)}% transfer bonus &nbsp;•&nbsp; Fees from ${usd(CFG.payouts.mpesa.fee)}</div></div>
-          ${ic('chev', 2.2).replace('<svg', '<svg class="chev"')}</button>
+            <div class="l3">Fees from ${usd(CFG.payouts.mpesa.fee)}</div></div>
+          </button>
         <button class="btn btn-primary" onclick="startSend()"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 2 2 10.2l7.4 3.1L20 4.8l-8.6 10.4V22l3.9-5.2 4.7 2z"/></svg> Send money</button>
-      </div>
-      ${active.length ? `<div class="h-sec"><h3>In progress</h3>${seeAll("S.txFilter='active';tab('history')")}</div>
-        <div class="t-cards"><div class="t-group-card">${active.map(txLine).join('')}</div></div>` : ''}
-      <div class="h-sec"><h3>Send again</h3>${seeAll("tab('recipients')")}</div>
-      <div class="h-chips">
-        <button class="h-add" onclick="go('add-recipient')" aria-label="Add new recipient">${ic('plus', 2)}</button>
-        ${sendAgainList().map(b => `<button class="h-chip" onclick="startSend('${b.id}')" aria-label="Send to ${esc(fullName(b))}">
-          ${portrait(b)}<span class="ct"><span class="cn">${esc(b.first)}</span><span class="ca">${esc(maskTail(b.accounts[0].number))}</span></span></button>`).join('')}
       </div>
       <div class="h-sec"><h3>Recent activity</h3>${seeAll("S.txFilter='all';tab('history')")}</div>
       ${recent.length ? txGroups(recent) : emptyState('clock', 'No transfers yet', 'Your transfers will appear here so you can track them.', 'Send money', 'startSend()')}
     </div></div>${bottomNav('home')}`;
   }
 });
-/* Send again: favourites first, then most recently paid */
-function sendAgainList() {
-  const last = id => Math.max(0, ...S.transactions.filter(t => t.ben === id).map(t => +new Date(t.date)));
-  return [...S.beneficiaries].sort((a, b) => (b.fav - a.fav) || (last(b.id) - last(a.id)));
-}
-const maskTail = n => { const d = String(n).replace(/\D/g, ''); return d.length >= 4 ? '\u2022\u2022\u2022\u2022\u2022' + d.slice(-2) : 'Pickup'; };
 /* Drawn portrait avatar (no stock photos). A real b.photo URL is used when present. */
 function portrait(b, size = 36) {
   if (b.photo) return `<img class="pt" src="${esc(b.photo)}" alt="" width="${size}" height="${size}" style="object-position:50% 20%">`;
@@ -3195,8 +3234,9 @@ function emptyState(icon, h, p, cta, fn) {
 screen('notifications', 'NT-01', 'Home & Navigation', 'Notification center', {
   render: () => {
     const kindIc = { processing: ['clock', 'amber'], failed: ['alert', 'red'], security: ['shield', 'blue'], completed: ['check', 'green'], kyc: ['shieldCheck', 'green'], refund: ['refund', ''] };
+    kycNotifSync();
     const items = S.notifications;
-    const row = n => `<button class="row" onclick="S.notifications.find(x=>x.id==='${n.id}').unread=false;${n.ref ? `go('tx-detail',{ref:'${n.ref}'})` : n.kind === 'security' ? "go('login-activity')" : 'render()'}" style="align-items:flex-start">
+    const row = n => `<button class="row" onclick="S.notifications.find(x=>x.id==='${n.id}').unread=false;${n.go ? `go('${n.go}')` : n.ref ? `go('tx-detail',{ref:'${n.ref}'})` : n.kind === 'security' ? "go('login-activity')" : 'render()'}" style="align-items:flex-start">
       <div class="ic ${kindIc[n.kind][1]}">${ic(kindIc[n.kind][0])}</div>
       <div class="tx"><div class="t1" style="white-space:normal">${n.unread ? '<span style="display:inline-block;width:7px;height:7px;border-radius:2px;background:var(--red);margin-right:6px;vertical-align:middle"></span>' : ''}${esc(n.title)}</div>
       <div class="t2" style="white-space:normal;line-height:1.45">${esc(n.body)}</div><div class="t2">${fmtDT(n.date)}</div></div></button>`;
@@ -3463,7 +3503,7 @@ screen('send-amount', 'SM-03', 'Send Money', 'Amount, rate & fees', {
 
       <!-- Receive dark card: rate label + white editable input -->
       <div class="fx-recv-wrap">
-        <div class="fx-recv-rate">1 ${sc.code} = <b>${q.rate.toFixed(4)} ${country.cur}</b> <span style="color:var(--red-light);font-weight:700">+10% bonus</span></div>
+        <div class="fx-recv-rate">1 ${sc.code} = <b>${q.rate.toFixed(4)} ${country.cur}</b> <span style="color:var(--red-light);font-weight:700">+${Math.round(CFG.promoBonus * 100)}% bonus</span></div>
         <div class="fx-recv-inner">
           <input id="a-recv" inputmode="decimal" placeholder="0" value="${recvAmt > 0 ? recvAmt.toFixed(2) : ''}" aria-label="Amount they receive" oninput="amtInput('recv',this.value)">
           <div class="fx-cur-badge">${country.cur}</div>
@@ -3499,7 +3539,7 @@ function destSheet() {
 function breakdown(q, pt) {
   return `<div class="kv"><span class="k">Transfer fee (${CFG.payouts[pt].label})</span><span class="v">${usdH(q.fee)}</span></div>
     <div class="kv"><span class="k">Exchange rate</span><span class="v">1 USD = ${q.rate.toFixed(2)} ETB</span></div>
-    <div class="kv hl"><span class="k">Remi bonus (10%)</span><span class="v">+${etbH(q.bonus)}</span></div>
+    <div class="kv hl"><span class="k">Remi bonus (${Math.round(CFG.promoBonus * 100)}%)</span><span class="v">+${etbH(q.bonus)}</span></div>
     <div class="kv total"><span class="k">Total to pay</span><span class="v">${usdH(q.total)}</span></div>`;
 }
 function amtInput(which, val) {
@@ -3661,7 +3701,7 @@ screen('send-review', 'SM-16', 'Send Money', 'Review & confirm', {
         <div class="kv"><span class="k">Transfer fee</span><span class="v">${usdH(q.fee)}</span></div>
         <div class="kv"><span class="k">Exchange rate</span><span class="v">1 USD = ${q.rate.toFixed(2)} ETB</span></div>
         <div class="kv"><span class="k">Converted</span><span class="v">${etbH(q.base)}</span></div>
-        <div class="kv hl"><span class="k">Remi bonus (10%)</span><span class="v">+${etbH(q.bonus)}</span></div>
+        <div class="kv hl"><span class="k">Remi bonus (${Math.round(CFG.promoBonus * 100)}%)</span><span class="v">+${etbH(q.bonus)}</span></div>
         <div class="kv total"><span class="k">Total to pay</span><span class="v">${usdH(q.total)}</span></div></div>
       <div class="section-h"><h3>Payment</h3><a onclick="go('send-payout')">Edit</a></div>
       <div class="card"><div class="kv"><span class="k">Paying with</span><span class="v">${esc(pm.label)}${pm.last4 ? ' \u2022\u2022\u2022\u2022 ' + pm.last4 : ''}</span></div></div>
@@ -4026,6 +4066,71 @@ function activityFilterDatePreset(preset) {
   }
   activityFiltersSheet();
 }
+/* ---------- Range date picker (Activity filters) — replaces the native date inputs ---------- */
+const RP = { from: '', to: '', active: 'from', y: 0, m: 0, ctx: 'page' };
+const isoD = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+const fmtD = iso => iso ? new Date(iso + 'T00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+function dateBtn(which, ctx) {
+  const v = which === 'from' ? S.txDateFrom : S.txDateTo;
+  return `<button type="button" class="date-input date-btn ${v ? '' : 'is-empty'}" onclick="rangePicker('${which}','${ctx}')">${ic('calendar', 2)}<span>${v ? fmtD(v) : 'Select date'}</span></button>`;
+}
+function rangePicker(which, ctx) {
+  Object.assign(RP, { from: S.txDateFrom || '', to: S.txDateTo || '', active: which, ctx });
+  const base = new Date(((which === 'to' ? RP.to : RP.from) || RP.from || RP.to || isoD(new Date())) + 'T00:00');
+  RP.y = base.getFullYear(); RP.m = base.getMonth();
+  rpRender();
+}
+function rpRender() {
+  let o = $('#rpOv');
+  if (!o) {
+    o = document.createElement('div'); o.id = 'rpOv'; o.className = 'rp-ov';
+    o.onclick = e => { if (e.target === o) rpClose(); };
+    $('.screen').appendChild(o);
+  }
+  const today = isoD(new Date());
+  const first = new Date(RP.y, RP.m, 1), lead = (first.getDay() + 6) % 7;   // weeks start on Monday
+  const start = new Date(RP.y, RP.m, 1 - lead);
+  const both = RP.from && RP.to && RP.from !== RP.to;
+  const cells = Array.from({ length: 42 }, (_, i) => {
+    const d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i), v = isoD(d);
+    const out = d.getMonth() !== RP.m, fut = v > today;
+    const inR = RP.from && RP.to && v > RP.from && v < RP.to;
+    const cls = ['rp-d', out ? 'out' : '', inR ? 'in' : '', v === RP.from ? 'st' : '', v === RP.to ? 'en' : '',
+      both && v === RP.from ? 'rs' : '', both && v === RP.to ? 're' : '', v === today ? 'td' : ''].filter(Boolean).join(' ');
+    return `<button class="${cls}" ${fut ? 'disabled' : `onclick="rpPick('${v}')"`}><span>${d.getDate()}</span></button>`;
+  }).join('');
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const nowY = new Date().getFullYear();
+  const years = Array.from({ length: 6 }, (_, i) => nowY - 5 + i);
+  const tab = w => `<button class="rp-tab ${RP.active === w ? 'on' : ''}" onclick="RP.active='${w}';rpRender()"><small>${w === 'from' ? 'From' : 'To'}</small><b>${RP[w] ? fmtD(RP[w]) : 'Select'}</b></button>`;
+  o.innerHTML = `<div class="rp-card" role="dialog" aria-label="Choose dates"><div class="grab"></div>
+    <button class="kc-close" onclick="rpClose()" aria-label="Close">${ic('close', 2.4)}</button>
+    <h3 class="rp-h">Select dates</h3>
+    <div class="rp-tabs">${tab('from')}${tab('to')}</div>
+    <div class="rp-nav">
+      <button class="rp-arrow" onclick="rpMove(-1)" aria-label="Previous month">${ic('chev', 2.4).replace('<svg', '<svg style="transform:rotate(180deg)"')}</button>
+      <div class="rp-sel"><select onchange="RP.m=+this.value;rpRender()" aria-label="Month">${months.map((n, i) => `<option value="${i}" ${i === RP.m ? 'selected' : ''}>${n}</option>`).join('')}</select>${ic('down', 2.4)}</div>
+      <div class="rp-sel"><select onchange="RP.y=+this.value;rpRender()" aria-label="Year">${years.map(y => `<option ${y === RP.y ? 'selected' : ''}>${y}</option>`).join('')}</select>${ic('down', 2.4)}</div>
+      <button class="rp-arrow" onclick="rpMove(1)" aria-label="Next month">${ic('chev', 2.4)}</button>
+    </div>
+    <div class="rp-grid rp-wk">${['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(d => `<span>${d}</span>`).join('')}</div>
+    <div class="rp-grid">${cells}</div>
+    <div class="btn-row mt16"><button class="btn btn-light" onclick="rpClose()">Cancel</button><button class="btn btn-primary" onclick="rpApply()" ${RP.from || RP.to ? '' : 'disabled'}>Apply</button></div>
+  </div>`;
+}
+function rpMove(n) { const d = new Date(RP.y, RP.m + n, 1); RP.y = d.getFullYear(); RP.m = d.getMonth(); rpRender(); }
+function rpPick(v) {
+  if (RP.active === 'from') { RP.from = v; if (RP.to && RP.to < v) RP.to = ''; RP.active = 'to'; }
+  else if (RP.from && v < RP.from) RP.from = v;
+  else RP.to = v;
+  rpRender();
+}
+function rpClose() { const o = $('#rpOv'); if (o) o.remove(); }
+function rpApply() {
+  S.txDateFrom = RP.from; S.txDateTo = RP.to; S.txDatePreset = 'custom';
+  rpClose();
+  if (RP.ctx === 'filter') activityFiltersSheet(); else render();
+}
 function activityFilterDateCustom(type, value) {
   if (type === 'from') S.txDateFrom = value;
   if (type === 'to') S.txDateTo = value;
@@ -4040,8 +4145,8 @@ function activityFiltersSheet() {
         <div class="filters-chips">${status('all', 'All')}${status('active', 'In progress')}${status('completed', 'Completed')}${status('failed', 'Failed')}${status('refunds', 'Refunds')}</div></div>
       <div class="filter-group" style="margin-top:4px"><div class="filter-group-head"><span class="filter-lbl">Date</span>${hasDateFilter ? `<button class="filter-reset-btn" onclick="S.txDatePreset='all';S.txDateFrom='';S.txDateTo='';activityFiltersSheet()">Reset</button>` : ''}</div>
         <div class="filters-chips">${date('all', 'All')}${date('today', 'Today')}${date('week', 'This week')}${date('month', 'This month')}</div>
-        <div class="date-range-row"><div class="date-field"><span class="df-lbl">From</span><input type="date" class="date-input" value="${S.txDateFrom || ''}" onchange="activityFilterDateCustom('from', this.value)"></div>
-          <div class="date-sep">—</div><div class="date-field"><span class="df-lbl">To</span><input type="date" class="date-input" value="${S.txDateTo || ''}" onchange="activityFilterDateCustom('to', this.value)"></div></div>
+        <div class="date-range-row"><div class="date-field"><span class="df-lbl">From</span>${dateBtn('from', 'filter')}</div>
+          <div class="date-sep">—</div><div class="date-field"><span class="df-lbl">To</span>${dateBtn('to', 'filter')}</div></div>
       </div></div><div class="btn-row mt16"><button class="btn btn-light" onclick="closeOverlay()">Cancel</button><button class="btn btn-primary" onclick="closeOverlay();render()">Show results</button></div>`);
 }
 
@@ -4117,12 +4222,12 @@ screen('history', 'TX-01', 'Transactions', 'History, search & filters', {
           <div class="date-range-row">
             <div class="date-field">
               <span class="df-lbl">From</span>
-              <input type="date" class="date-input" value="${S.txDateFrom || ''}" onchange="setTxDateCustom('from', this.value)">
+              ${dateBtn('from', 'page')}
             </div>
             <div class="date-sep">\u2014</div>
             <div class="date-field">
               <span class="df-lbl">To</span>
-              <input type="date" class="date-input" value="${S.txDateTo || ''}" onchange="setTxDateCustom('to', this.value)">
+              ${dateBtn('to', 'page')}
             </div>
           </div>
         </div>
@@ -4211,9 +4316,8 @@ screen('personal', 'PR-02', 'Profile & Security', 'Personal information', {
         ${f('p-addr', 'Address', u.address)}
         ${f('p-country', 'Country', u.country, { lockd: true })}
       </div>
-      ${ed ? '' : `<button class="pi-close" onclick="confirmClose()">${ic('warn')}<span>Close my account</span></button>`}
       </div></div>
-    ${ed ? `<div class="bottom-bar"><button class="btn btn-primary" onclick="S.user.email=$('#p-email').value;S.user.phone=$('#p-phone').value;S.user.address=$('#p-addr').value;go('otp',{mode:'login',to:S.user.phone},{replace:true});toast('Verify your changes')">Save changes</button></div>` : ''}`;
+    ${ed ? `<div class="bottom-bar"><button class="btn btn-primary" onclick="S.user.email=$('#p-email').value;S.user.phone=$('#p-phone').value;S.user.address=$('#p-addr').value;go('otp',{mode:'login',to:S.user.phone},{replace:true});toast('Verify your changes')">Save changes</button></div>` : `<div class="bottom-bar"><button class="pi-close" onclick="confirmClose()">${ic('warn')}<span>Close my account</span></button></div>`}`;
   }
 });
 
